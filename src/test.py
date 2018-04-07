@@ -1,6 +1,6 @@
 import discord
 import asyncio
-import tokencontainer
+import token
 
 client = discord.Client()
 
@@ -16,4 +16,4 @@ async def on_message(message):
     if(message.content.startswith('!pong')):
         await client.send_message(message.channel, 'Niet zo flauw doen...')
 
-client.run(id_token.get_token())
+client.run(token.get_token())
