@@ -1,7 +1,7 @@
 import discord
 import asyncio
 import sys
-import tokenfile as token
+import logintoken as token
 
 import YoutubeModule as yt
 

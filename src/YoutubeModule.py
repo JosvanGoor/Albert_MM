@@ -109,7 +109,10 @@ class YoutubeModule (mb.ModuleBase):
             # Handles incorrect url's
             try:
                 self.player = await self.voice.create_ytdl_player(url)
-                self.timer = self.player.duration + 2
+                if self.player.duration == 0:
+                    self.timer = -2
+                else:
+                    self.timer = self.player.duration + 2
                 self.player.start()
             except discord.ClientException: 
                 self.timer = 1
