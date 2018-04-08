@@ -1,6 +1,6 @@
 # Module.py defines a module baseclass used to register with the python core.
 
-class Module:
+class ModuleBase:
 
     # Generates this module's filter object and returns it.
     def get_filter(self):
@@ -12,10 +12,18 @@ class Module:
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
     # of this module
-    async def help_string(self):
+    def help_message(self):
+        raise NotImplementedError()
+
+    # Status in 1 line (running! or error etc..)
+    def short_status(self):
         raise NotImplementedError()
 
     # This method gets called when status is called on this module. This should return a string explaining the
     # runtime status of this module.
-    async def status_string(self):
+    def status(self):
+        raise NotImplementedError()
+
+    # This method gets called once every second for time based operations.
+    def update(self):
         raise NotImplementedError()
