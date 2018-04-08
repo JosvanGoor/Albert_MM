@@ -7,6 +7,7 @@ class ModuleBase:
         raise NotImplementedError()
 
     # This method gets called when a command arrives that passed this module's filter
+    # This function can return a string which will be the bot's response.
     async def handle_message(self, message):
         raise NotImplementedError()
 

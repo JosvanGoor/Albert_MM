@@ -53,9 +53,6 @@ class YoutubeModule (mb.ModuleBase):
             self.queue.append(args[1])
             return 'Added song to queue'
 
-
-
-
     # This method gets called when help is called on this module. This should return a string explaining the usage
     # of this module
     def help_message(self):
@@ -87,6 +84,7 @@ class YoutubeModule (mb.ModuleBase):
 
     # Plays next song (if any)
     async def play_next(self):
+        # not connected, perform cleanup and return
         if(self.channel == None):
             self.queue = []
             if(self.player):
@@ -97,17 +95,20 @@ class YoutubeModule (mb.ModuleBase):
                 self.voice = None
             return
         
+        #if we are still playing stop the current player
         if(self.player):
             self.player.stop()
 
+        # While there are still songs in the queue
         if len(self.queue) > 0:
             url = self.queue.pop()
             
+            # Handles incorrect url's
             try:
                 self.player = await self.voice.create_ytdl_player(url)
-                self.timer = self.player.duration + 5
+                self.timer = self.player.duration + 2
                 self.player.start()
-            except discord.ClientException:
+            except discord.ClientException: 
                 self.timer = 1
             except youtube_dl.utils.DownloadError:
                 self.timer = 1
