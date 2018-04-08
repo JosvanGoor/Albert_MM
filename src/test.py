@@ -9,11 +9,20 @@ import YoutubeModule as yt
 client = discord.Client()
 yutub = yt.YoutubeModule(client)
 
+# asyncio.ensure_future(self.finalize_item())
+async def ticker():
+    await asyncio.sleep(1)
+    await yutub.update()
+    asyncio.ensure_future(ticker())
+
+
+
 @client.event
 async def on_ready():
     print('Logged in as: ', client.user.name)
     print('id: ', client.user.id)
 
+    asyncio.ensure_future(ticker())
     #signal.signal(signal.SIGINT, ctrl_c_handler)
 
 @client.event

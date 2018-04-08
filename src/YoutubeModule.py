@@ -1,23 +1,60 @@
 import discord
 import asyncio
+import youtube_dl
 import ModuleBase as mb
 
 class YoutubeModule (mb.ModuleBase):
+    # asyncio.ensure_future(self.finalize_item())
 
     def __init__(self, client):
         self.client = client
         self.queue = []
         self.player = None
         self.voice = None
+        self.channel = None
         self.timer = 0
+
+        print('Youtube module initialized...')
 
     # Generates this module's filter object and returns it.
     def get_filter(self):
         return '!yt'
 
     # This method gets called when a command arrives that passed this module's filter
-    async def handle_message(self, message, client):
+    async def handle_message(self, message):
+        args = message.content.split(' ')
+        if(not args[0] == '!yt'):
+            return 'YoutubeModule filter is misconfigured.'
         
+        if(len(args) != 2): return 'YT: Needs exactely 1 argument...'
+
+        if(args[1] == 'stop'):
+            self.queue = []
+            self.timer = 1
+            return 'Stopping yt player'
+        
+        if(args[1] == 'next'):
+            await self.play_next()
+            return 'Playing next song...'
+
+        if(self.channel == None):
+            self.channel = message.author.voice_channel
+            self.queue.append(args[1])
+            
+            try:
+                self.voice = await self.client.join_voice_channel(self.channel)
+                self.timer = 1
+                return 'Playing song!'
+            except InvalidArgument:
+                self.channel = None
+                self.queue = []
+                return 'YT: Invalid url or request.'
+        else:
+            self.queue.append(args[1])
+            return 'Added song to queue'
+
+
+
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
     # of this module
@@ -31,7 +68,7 @@ class YoutubeModule (mb.ModuleBase):
 
     # Status in 1 line (running! or error etc..)
     def short_status(self):
-        if(self.player) return 'Ok! Playing song...'
+        if(self.player): return 'Ok! Playing song...'
         return 'Ok! idle...'
 
     # This method gets called when status is called on this module. This should return a string explaining the
@@ -40,71 +77,42 @@ class YoutubeModule (mb.ModuleBase):
         return 'Verbose status not implemented yet...'
 
     # This method gets called once every second for time based operations.
-    def update(self):
-        raise NotImplementedError()
-    
-    
-    
-    
-    def __init__(self, client):
-        self.client = client
-        self.queue = []
-        self.player = None
-        self.voice_client = None
-        self.task = None
+    async def update(self):
+        if(self.timer > -1):
+            self.timer -= 1
 
-        asyncio.ensure_future(self.finalize_item())
+        if self.timer == 0:
+            await self.play_next()
+            print('self.timer == 0')
 
-        print('Initialized YoutubeModule...')
-
-    def get_filter(self):
-        return "!yt"
-
-    async def handle_message(self, message):
-        args = message.content.split(' ')
-        if not args[0] == '!yt':
-            print('YoutubeModule::handle_message - filter failed.')
-            return 
-        
-        if len(args) < 2 or len(args) > 2: return
-
-        if args[1] == 'stop':
+    # Plays next song (if any)
+    async def play_next(self):
+        if(self.channel == None):
             self.queue = []
             if(self.player):
                 self.player.stop()
                 self.player = None
-                await self.voice_client.disconnect()
-                self.voice_client = None
-
-        elif self.player and self.player.is_playing():
-            self.queue.append(args[1])
-            return 'queued song!'
-
-        elif not self.player:
-            url = args[1]
-            channel = message.author.voice_channel
-            self.voice_client = await self.client.join_voice_channel(channel)
-            self.player = await self.voice_client.create_ytdl_player(url)
-            print('calling self.player.start()')
-            self.player.start()
+            if(self.voice):
+                await self.voice.disconnect()
+                self.voice = None
+            return
         
-        return 'ok!'
-
-    async def finalize_item(self):
-        await asyncio.sleep(1)
-
-        if(self.player and self.player.is_playing()):
-            asyncio.ensure_future(self.finalize_item())
-
-        elif len(self.queue) > 0:
-            print('Running next song!...')
-            song = queue.pop()
-            self.player = await self.voice_client.create_ytdl_player(url, after = self.finalize_item)
-            await finalize_item()
-        
-        elif(self.player):
-            print('Kiling player!...')
+        if(self.player):
             self.player.stop()
-            self.player = None
-            self.voice_client.disconnect()
-            self.voice_client = None
+
+        if len(self.queue) > 0:
+            url = self.queue.pop()
+            
+            try:
+                self.player = await self.voice.create_ytdl_player(url)
+                self.timer = self.player.duration + 5
+                self.player.start()
+            except discord.ClientException:
+                self.timer = 1
+            except youtube_dl.utils.DownloadError:
+                self.timer = 1
+            return
+        
+        else:
+            self.channel = None
+            self.timer = 1

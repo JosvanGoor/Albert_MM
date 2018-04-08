@@ -7,7 +7,7 @@ class ModuleBase:
         raise NotImplementedError()
 
     # This method gets called when a command arrives that passed this module's filter
-    async def handle_message(self, message, client):
+    async def handle_message(self, message):
         raise NotImplementedError()
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
@@ -25,5 +25,5 @@ class ModuleBase:
         raise NotImplementedError()
 
     # This method gets called once every second for time based operations.
-    def update(self):
+    async def update(self):
         raise NotImplementedError()
