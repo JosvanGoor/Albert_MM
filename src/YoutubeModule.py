@@ -45,7 +45,10 @@ class YoutubeModule (mb.ModuleBase):
                 self.voice = await self.client.join_voice_channel(self.channel)
                 self.timer = 1
                 return 'Playing song!'
-            except InvalidArgument:
+            except discord.ClientException: 
+                self.timer = 1
+                return 'You are not in a voicechannel.'
+            except discord.errors.InvalidArgument:
                 self.channel = None
                 self.queue = []
                 return 'YT: Invalid url or request.'
