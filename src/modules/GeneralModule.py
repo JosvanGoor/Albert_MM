@@ -1,12 +1,12 @@
 import discord
-import ModuleBase as base
+import modules.ModuleBase as base
 import time
 
-class GeneralModule (base.ModuleBase):
+class GeneralModule(base.ModuleBase):
     
     # Constructor
     def __init__(self, client, modules):
-        self.client = client
+        super().__init__(client)
         self.modules = modules
         self.startup_time = None
 
@@ -26,14 +26,20 @@ class GeneralModule (base.ModuleBase):
         if not message.channel.name == 'botspam': return
 
         if message.content.startswith('!ping'):
-            await client.send_message(message.channel, 'Pong!')
+            await self.client.send_message(message.channel, 'Pong!')
             return
         
         if message.content.startswith('!pong'):
-            await client.send_message(message.channel, 'Toe even...')
+            await self.client.send_message(message.channel, 'Toe even...')
             return
 
-        await super.handle_message(message) # handles 'help' and 'status'
+        if message.content.startswith('!help'):
+            await self.client.send_message(message.channel, self.help_message())
+            return
+
+        if message.content.startswith('!status'):
+            await self.client.send_message(message.channel, self.status())
+            return
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
     # of this module
@@ -55,10 +61,10 @@ class GeneralModule (base.ModuleBase):
     # runtime status of this module.
     def status(self):
         msg = 'Magikman bot status report:\r\n'
-        msg = 'runtime: ' + str(self.startup_time - int(time.time())) + 's\r\n\r\n'
-        msg = 'Modules:\r\n'
+        msg += 'runtime: ' + str(int(time.time()) - self.startup_time) + 's\r\n\r\n'
+        msg += 'Modules:\r\n'
         for value in self.modules.values():
-            msg = '    ' + value.short_status() + '\r\n'
+            msg += '    ' + value.short_status() + '\r\n'
         
         return msg
         

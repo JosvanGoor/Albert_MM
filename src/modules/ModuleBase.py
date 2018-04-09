@@ -2,6 +2,10 @@
 
 class ModuleBase:
 
+    # initializer, binds client handle
+    def __init__(self, client):
+        self.client = client
+
     # Gets called once, when the client is connected.
     async def on_ready(self):
         pass
@@ -15,15 +19,15 @@ class ModuleBase:
     async def handle_message(self, message):
         args = message.content.split(' ')
         if len(args) == 1:
-            await client.send_message(message.channel, self.help_message())
+            await self.client.send_message(message.channel, self.help_message())
             return
             
         if len(args) == 2:
             if args[1] == 'help':
-                await client.send_message(message.channel, self.help_message())
+                await self.client.send_message(message.channel, self.help_message())
                 return
             if args[1] == 'status':
-                await client.send_message(message.channel, self.status())
+                await self.client.send_message(message.channel, self.status())
                 return
 
     # This method gets called when help is called on this module. This should return a string explaining the usage

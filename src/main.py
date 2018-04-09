@@ -8,12 +8,16 @@ modules = {}
 general_module = None
 
 def register_modules():
+    global modules
+
     #modules['!command'] = Module()
     pass
 
 # ticks 1'ce per second for modules
 # that require time based updates
 async def ticker():
+    global modules
+
     await asyncio.sleep(1)
     asyncio.ensure_future(ticker())
 
@@ -23,12 +27,16 @@ async def ticker():
 # setup-on-connect
 @client.event
 async def on_ready():
+    global modules
+    global general_module
+
     print('Logged in as: ', client.user.name, '(', client.user.id, ')')
 
-    general_module = gm.GeneralModule()
+    general_module = gm.GeneralModule(client, modules)
 
     for module in modules.values():
         await module.on_ready()
+    await general_module.on_ready()
 
     asyncio.ensure_future(ticker())
 
@@ -42,8 +50,7 @@ async def on_message(message):
             await value.handle_message(message)
             return
     
-    if(general_module):
-        await general_module.handle_message(message)
+    await general_module.handle_message(message)
 
 # run the thing
 register_modules()
