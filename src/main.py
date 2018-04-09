@@ -38,6 +38,7 @@ async def on_ready():
     print('Logged in as: ', client.user.name, '(', client.user.id, ')')
 
     general_module = gm.GeneralModule(client, modules)
+    register_modules()
 
     for module in modules.values():
         await module.on_ready()
@@ -58,5 +59,4 @@ async def on_message(message):
     await general_module.handle_message(message)
 
 # run the thing
-register_modules()
 client.run(token.get_token())
