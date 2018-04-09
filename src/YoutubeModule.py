@@ -112,6 +112,10 @@ class YoutubeModule (mb.ModuleBase):
         if len(self.queue) > 0:
             url = self.queue.pop()
             
+            if not url.contains('youtube'):
+                self.working = False
+                return
+
             # Handles incorrect url's
             try:
                 self.player = await self.voice.create_ytdl_player(url)

@@ -72,20 +72,24 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if(message.content.startswith('!ping')):
+    if(not message.channel.name == "botspam"): return 
+    
+    elif(message.content.startswith('!ping')):
         await client.send_message(message.channel, 'Pong!')
     elif(message.content.startswith('!pong')):
         await client.send_message(message.channel, 'Niet zo flauw doen...')
     elif(message.content.startswith('!ticker')):
         await client.send_message(message.channel, 'Running for ' + str(timer) + ' seconds')
 
-
-    elif(not message.channel.name == "botspam"): return
-
     elif(message.content.startswith('!yt')):
         rval = await yutub.handle_message(message)
         if(rval):
             await client.send_message(message.channel, rval)
+
+    elif(message.content.startswith('!echo')):
+        msg = message.content.split(' ', 1)
+        if len(msg) > 1:
+            await client.send_message(message.channel, msg[1])
 
     elif(message.content.startswith('!help')):
         msg = 'Albert the MagikMan bot v1.0\r\nrunning modules: Youtube player\r\n\r\n'
