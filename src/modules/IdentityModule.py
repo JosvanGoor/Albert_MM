@@ -1,7 +1,7 @@
 import json
 
 import discord
-import ModuleBase as base
+import modules.ModuleBase as base
 import requests
 
 class Identity(base.ModuleBase):
@@ -26,6 +26,9 @@ class Identity(base.ModuleBase):
     # This method gets called when a command arrives that passed this module's filter
     # This function can return a string which will be the bot's response.
     async def handle_message(self, message):
+        # dit kan worden:
+        # await super().handle_message(message)
+        
         args = message.content.split(' ')
         if len(args) == 1:
             await client.send_message(message.channel, self.help_message())
@@ -42,22 +45,25 @@ class Identity(base.ModuleBase):
     # This method gets called when help is called on this module. This should return a string explaining the usage
     # of this module
     def help_message(self):
-        raise NotImplementedError()
+        return 'IdentityModule help'
 
     # Status in 1 line (running! or error etc..)
     def short_status(self):
-        raise NotImplementedError()
+        return 'IdentityModule help'
 
     # This method gets called when status is called on this module. This should return a string explaining the
     # runtime status of this module.
     def status(self):
-        raise NotImplementedError()
+        return 'IdentityModule: Idle'
+
+    def name(self):
+        return 'IdentityModule'
 
     # This method gets called once every second for time based operations.
     async def update(self):
         self.tricker_count +=1
 
-        if self.tricker_count%3600 == 0:
+        if self.tricker_count % 3600 == 0:
             self.tricker_count = 0
             self.set_identity()
             self.make_identity()
