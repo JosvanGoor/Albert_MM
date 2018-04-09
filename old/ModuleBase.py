@@ -2,13 +2,17 @@
 
 class ModuleBase:
 
-    # Generates this module's filter object and returns it.
+    # Gets called when the connection is completed
+    async def on_ready(self):
+        pass
+
     def get_filter(self):
+        ''' Generates this module's filter object and returns it. '''
         raise NotImplementedError()
 
-    # This method gets called when a command arrives that passed this module's filter
-    # This function can return a string which will be the bot's response.
     async def handle_message(self, message):
+    ''' This method gets called when a command arrives that passed this module's filter
+        This function can return a string which will be the bot's response. '''
         raise NotImplementedError()
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
