@@ -17,6 +17,7 @@ class YoutubeModule(base.ModuleBase):
         self.player = None
         self.voice = None
         self.channel = None
+        self.chat = None
         self.song = ""
         self.state = self.STATE_IDLE
         self.timer = -1
@@ -31,6 +32,7 @@ class YoutubeModule(base.ModuleBase):
     # This function can return a string which will be the bot's response.
     async def handle_message(self, message):
         if not message.channel.name == 'botspam': return
+        self.chat = message.channel
         args = message.content.split(' ')
 
         if len(args) == 2:
@@ -47,11 +49,15 @@ class YoutubeModule(base.ModuleBase):
             return
 
         # it must be a link then, start playin bojj
-        self.queue.append(args[1])
-        self.channel = message.author.voice_channel
-        if self.state == self.STATE_IDLE: # not if were busy tho
-            self.state = self.STATE_STARTING
-        return
+        # check input
+        if re.match(r'^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+', args[1]):
+            self.queue.append(args[1])
+            self.channel = message.author.voice_channel
+
+            if self.state == self.STATE_IDLE: # not if were busy tho
+                self.state = self.STATE_STARTING
+        else:
+            await self.client.send_message(message.channel, 'That is not an youtube url you cheecky bastard :)')
 
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
@@ -70,14 +76,14 @@ class YoutubeModule(base.ModuleBase):
 
     # Status in 1 line (running! or error etc..)
     def short_status(self):
-        if(self.player): return 'YoutubeModule: Playing'
-        return 'YoutubeModule: Idle'
+        if self.state == self.STATE_PLAYING:
+            return 'YoutubeModule: playing ' + self.song
+        return 'YoutubeModule: ' + self.state
 
     # This method gets called when status is called on this module. This should return a string explaining the
     # runtime status of this module.
     def status(self):
-        if(self.player): return 'YoutubeModule: Playing'
-        return 'YoutubeModule: Idle'
+        return short_status()
 
     # This method gets called once every second for time based operations.
     async def update(self):
@@ -122,28 +128,23 @@ class YoutubeModule(base.ModuleBase):
                 self.player = None
 
             song = self.queue.pop()
-            if re.match(r'^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+', song):
-                try:
-                    if not self.voice:
-                        self.voice = await self.client.join_voice_channel(self.channel)
-                    
-                    self.player = await self.voice.create_ytdl_player(song)
-                    if(self.player.is_live): self.timer = -1
-                    else: self.timer = self.player.duration + 2
+            try:
+                if not self.voice:
+                    self.voice = await self.client.join_voice_channel(self.channel)
+                
+                self.player = await self.voice.create_ytdl_player(song)
+                if(self.player.is_live): self.timer = -1
+                else: self.timer = self.player.duration + 2
 
-                    print('self.timer: ', self.timer)
-
-                    self.player.start()
-                except discord.ClientException as e:
-                    print(e)
-                    self.state = self.STATE_STOPPING
-                except youtube_dl.utils.DownloadError as e:
-                    print(e)
-                    self.state = self.STATE_STOPPING
-                    self.timer = -1
-
-            else:
-                await self.client.send_message(message.channel, 'That is not an youtube url you cheecky bastard :)')
+                self.song = self.player.title
+                self.player.start()
+            except discord.ClientException as e:
+                print(e)
+                self.state = self.STATE_STOPPING
+            except youtube_dl.utils.DownloadError as e:
+                print(e)
+                self.state = self.STATE_STOPPING
+                self.timer = -1
 
 
 
