@@ -14,6 +14,8 @@ class YoutubeModule (mb.ModuleBase):
         self.channel = None
         self.timer = 0
 
+        self.working = False
+
         print('Youtube module initialized...')
 
     # Generates this module's filter object and returns it.
@@ -43,7 +45,7 @@ class YoutubeModule (mb.ModuleBase):
             
             try:
                 self.voice = await self.client.join_voice_channel(self.channel)
-                self.timer = 1
+                self.timer = 30
                 return 'Playing song!'
             except discord.ClientException: 
                 self.timer = 1
@@ -87,6 +89,9 @@ class YoutubeModule (mb.ModuleBase):
 
     # Plays next song (if any)
     async def play_next(self):
+        if self.working: return
+        self.working = True
+
         # not connected, perform cleanup and return
         if(self.channel == None):
             self.queue = []
@@ -119,8 +124,11 @@ class YoutubeModule (mb.ModuleBase):
                 self.timer = 1
             except youtube_dl.utils.DownloadError:
                 self.timer = 1
+            
+            self.working = False
             return
         
         else:
             self.channel = None
             self.timer = 1
+            self.working = False
