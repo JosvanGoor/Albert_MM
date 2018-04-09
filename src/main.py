@@ -1,7 +1,9 @@
 import discord
 import asyncio
 import logintoken as token
+
 import modules.GeneralModule as gm
+import modules.YoutubeModule as yt
 
 client = discord.Client()
 modules = {}
@@ -11,6 +13,8 @@ def register_modules():
     global modules
 
     #modules['!command'] = Module()
+    modules['!yt'] = yt.YoutubeModule()
+
     pass
 
 # ticks 1'ce per second for modules
