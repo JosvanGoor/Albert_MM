@@ -14,6 +14,8 @@ client = discord.Client()
 yutub = yt.YoutubeModule(client)
 
 async def set_identity():
+    print('timer is ', timer, ' running set_identity()')
+
     person = identity.get_peep()
 
     avatar_url = person['results'][0]['picture']['large']
@@ -24,7 +26,14 @@ async def set_identity():
         naam += ' ' + person['results'][0]['name']['last']
 
         await client.change_nickname(server.me, naam.title())
-        await client.edit_profile(avatar = avatar_img)
+        try:
+            await asyncio.wait_for(client.edit_profile(avatar = avatar_img), 15)
+            print('successfully changed avatar!')
+        except discord.errors.HTTPException:
+            print('Failed to set avatar :(')
+        except asyncio.TimeoutError:
+            print('Caught timeouterror!')
+            
         break
 
 
@@ -32,25 +41,33 @@ async def set_identity():
 
 # asyncio.ensure_future(self.finalize_item())
 async def ticker():
+    await asyncio.sleep(1)
+    asyncio.ensure_future(ticker())
+    
     global timer
     timer += 1
+    print('\rtimer: ', timer, end='')
 
-    await asyncio.sleep(1)
-    if timer % 600: await set_identity()
+
     await yutub.update()
+    
+    if timer % 120 == 0:
+        await set_identity()
 
     if not running:
         return # of toch....
 
-    asyncio.ensure_future(ticker())
 
 @client.event
 async def on_ready():
+    global timer
+
     print('Logged in as: ', client.user.name)
     print('id: ', client.user.id)
 
     signal.signal(signal.SIGINT, signal_handler)
     await set_identity()
+    
     asyncio.ensure_future(ticker()) #starts the tickerloop FOREVA
 
 @client.event
@@ -59,6 +76,9 @@ async def on_message(message):
         await client.send_message(message.channel, 'Pong!')
     elif(message.content.startswith('!pong')):
         await client.send_message(message.channel, 'Niet zo flauw doen...')
+    elif(message.content.startswith('!ticker')):
+        await client.send_message(message.channel, 'Running for ' + str(timer) + ' seconds')
+
 
     elif(not message.channel.name == "botspam"): return
 
