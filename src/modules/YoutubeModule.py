@@ -46,12 +46,12 @@ class YoutubeModule(base.ModuleBase):
         if await super().handle_message(message):
             return
 
-            # it must be a link then, start playin bojj
-            self.queue.append(args[1])
-            self.channel = message.author.voice_channel
-            if self.state == self.STATE_IDLE: # not if were busy tho
-                self.state = self.STATE_STARTING
-            return
+        # it must be a link then, start playin bojj
+        self.queue.append(args[1])
+        self.channel = message.author.voice_channel
+        if self.state == self.STATE_IDLE: # not if were busy tho
+            self.state = self.STATE_STARTING
+        return
 
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
