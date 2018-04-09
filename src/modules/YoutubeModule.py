@@ -1,7 +1,7 @@
 import discord
 import asyncio
 import youtube_dl
-import module.ModuleBase as base
+import modules.ModuleBase as base
 
 class YoutubeModule(base.ModuleBase):
 
@@ -12,6 +12,8 @@ class YoutubeModule(base.ModuleBase):
         self.voice = None
         self.channel = None
         self.timer = 0
+
+        print('YoutubeModule initialized...')
 
     # Gets called once, when the client is connected.
     async def on_ready(self):
@@ -34,6 +36,9 @@ class YoutubeModule(base.ModuleBase):
         msg += '    "!yt next": Skips to the next song in the queue\r\n'
         msg += '    "!yt stop": Stops playback and clears the queue\r\n'
         return msg
+    
+    def name(self):
+        return 'YoutubeModule'
 
     # Status in 1 line (running! or error etc..)
     def short_status(self):

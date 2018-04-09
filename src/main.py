@@ -10,10 +10,11 @@ modules = {}
 general_module = None
 
 def register_modules():
+    global client
     global modules
 
     #modules['!command'] = Module()
-    modules['!yt'] = yt.YoutubeModule()
+    modules['!yt'] = yt.YoutubeModule(client)
 
     pass
 

@@ -48,10 +48,14 @@ class GeneralModule(base.ModuleBase):
         msg += 'I am the l3am discord bot try me and say !ping\r\n'
         msg += 'To get help on any sub modules use the module command followed by "help"\r\n\r\n'
         msg += 'List of module commands:\r\n'
-        for key in self.modules.keys():
-            msg += '    ' + key + '\r\n'
+        for key, value in self.modules.items():
+            msg += '    "' + key + '" - ' + value.name()  + '\r\n'
         
         return msg
+
+    #comment hiero
+    def name(self):
+        return 'GeneralModule'
 
     # Status in 1 line (running! or error etc..)
     def short_status(self):

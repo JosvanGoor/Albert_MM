@@ -35,6 +35,10 @@ class ModuleBase:
     def help_message(self):
         raise NotImplementedError()
 
+    # Returns the name of the module.
+    def name(self):
+        return 'Bad programming'
+
     # Status in 1 line (running! or error etc..)
     def short_status(self):
         raise NotImplementedError()
