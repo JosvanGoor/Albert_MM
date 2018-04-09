@@ -102,6 +102,7 @@ class YoutubeModule (mb.ModuleBase):
             if(self.voice):
                 await self.voice.disconnect()
                 self.voice = None
+            self.working = False
             return
         
         #if we are still playing stop the current player
