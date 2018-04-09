@@ -45,7 +45,7 @@ class YoutubeModule (mb.ModuleBase):
             
             try:
                 self.voice = await self.client.join_voice_channel(self.channel)
-                self.timer = 30
+                self.timer = 1
                 return 'Playing song!'
             except discord.ClientException: 
                 self.timer = 1
@@ -89,6 +89,7 @@ class YoutubeModule (mb.ModuleBase):
 
     # Plays next song (if any)
     async def play_next(self):
+        print('Entering play_next')
         if self.working: return
         self.working = True
 
@@ -114,15 +115,18 @@ class YoutubeModule (mb.ModuleBase):
             # Handles incorrect url's
             try:
                 self.player = await self.voice.create_ytdl_player(url)
+                print('player dur: ', self.player.duration)
                 if self.player.duration == 0:
                     self.timer = -2
                 else:
                     self.timer = self.player.duration + 2
-                    print('Set timer to ', timer)
+                    print('Set timer to ', self.timer)
                 self.player.start()
-            except discord.ClientException: 
+            except discord.ClientException as e:
+                print(e)
                 self.timer = 1
-            except youtube_dl.utils.DownloadError:
+            except youtube_dl.utils.DownloadError as e:
+                print(e)
                 self.timer = 1
             
             self.working = False
