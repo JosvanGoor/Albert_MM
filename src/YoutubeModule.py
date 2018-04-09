@@ -43,7 +43,7 @@ class YoutubeModule (mb.ModuleBase):
             
             try:
                 self.voice = await self.client.join_voice_channel(self.channel)
-                self.timer = 1
+                self.timer = 30
                 return 'Playing song!'
             except discord.ClientException: 
                 self.timer = 1
