@@ -19,7 +19,7 @@ class YoutubeModule(base.ModuleBase):
         self.channel = None
         self.song = ""
         self.state = self.STATE_IDLE
-        self.timer = 0
+        self.timer = -1
 
         print('YoutubeModule initialized...')
 
@@ -45,7 +45,7 @@ class YoutubeModule(base.ModuleBase):
 
             # it must be a link then, start playin bojj
             self.queue.append(args[1])
-            self.channel = message.channel
+            self.channel = message.author.voice_channel
             if self.state == self.STATE_IDLE: # not if were busy tho
                 self.state = self.STATE_STARTING
             return
@@ -92,6 +92,7 @@ class YoutubeModule(base.ModuleBase):
         
         # clean resources.
         if self.state == self.STATE_STOPPING:
+            print('State = stopping')
             self.queue = []
             self.song = ""
             self.state = self.STATE_IDLE
@@ -107,6 +108,7 @@ class YoutubeModule(base.ModuleBase):
 
         # somebody said music?
         if self.state == self.STATE_STARTING:
+            self.state = self.STATE_PLAYING
             # No! =(
             if len(self.queue) == 0:
                 self.state = self.STATE_STOPPING
@@ -127,15 +129,16 @@ class YoutubeModule(base.ModuleBase):
                     if(self.player.is_live): self.timer = -1
                     else: self.timer = self.player.duration + 2
 
-                    self.player.start()
+                    print('self.timer: ', self.timer)
 
-                    self.state = STATE_PLAYING
+                    self.player.start()
                 except discord.ClientException as e:
                     print(e)
                     self.state = self.STATE_STOPPING
                 except youtube_dl.utils.DownloadError as e:
                     print(e)
                     self.state = self.STATE_STOPPING
+                    self.timer = -1
 
             else:
                 await self.client.send_message(message.channel, 'That is not an youtube url you cheecky bastard :)')
