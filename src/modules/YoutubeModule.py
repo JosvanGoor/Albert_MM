@@ -140,10 +140,10 @@ class YoutubeModule(base.ModuleBase):
                 self.player.start()
             except discord.ClientException as e:
                 print(e)
-                self.state = self.STATE_STOPPING
+                self.state = self.STATE_STARTING
             except youtube_dl.utils.DownloadError as e:
                 print(e)
-                self.state = self.STATE_STOPPING
+                self.state = self.STATE_STARTING
                 self.timer = -1
 
 
