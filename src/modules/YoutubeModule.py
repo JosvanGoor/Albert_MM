@@ -42,6 +42,9 @@ class YoutubeModule(base.ModuleBase):
             if args[1] == 'next':
                 self.state = self.STATE_STARTING
                 return
+        
+        if await super().handle_message(message):
+            return
 
             # it must be a link then, start playin bojj
             self.queue.append(args[1])
@@ -50,7 +53,6 @@ class YoutubeModule(base.ModuleBase):
                 self.state = self.STATE_STARTING
             return
 
-        await super().handle_message(message)
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
     # of this module

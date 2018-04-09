@@ -20,15 +20,17 @@ class ModuleBase:
         args = message.content.split(' ')
         if len(args) == 1:
             await self.client.send_message(message.channel, self.help_message())
-            return
+            return True
             
         if len(args) == 2:
             if args[1] == 'help':
                 await self.client.send_message(message.channel, self.help_message())
-                return
+                return True
             if args[1] == 'status':
                 await self.client.send_message(message.channel, self.status())
-                return
+                return True
+
+        return False
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
     # of this module
