@@ -21,6 +21,7 @@ async def ticker():
         await module.update()
 
 # setup-on-connect
+@client.event
 async def on_ready():
     print('Logged in as: ', client.user.name, '(', client.user.id, ')')
 
@@ -33,6 +34,7 @@ async def on_ready():
 
 # dispatch messages to relevant modules
 # No relevant module found -> send it to the general module
+@client.event
 async def on_message(message):
     for key, value in modules.items():
         if(message.content.startswith(key)):
