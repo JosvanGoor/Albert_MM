@@ -113,6 +113,7 @@ class YoutubeModule (mb.ModuleBase):
                     self.timer = -2
                 else:
                     self.timer = self.player.duration + 2
+                    print('Set timer to ', timer)
                 self.player.start()
             except discord.ClientException: 
                 self.timer = 1

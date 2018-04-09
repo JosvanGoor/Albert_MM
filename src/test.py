@@ -51,7 +51,7 @@ async def ticker():
 
     await yutub.update()
     
-    if timer % 120 == 0:
+    if timer % 900 == 0:
         await set_identity()
 
     if not running:
