@@ -10,6 +10,10 @@ class ModuleBase:
     async def on_ready(self):
         pass
 
+    #gets called when an update happens in 'a' voice channel
+    async def on_voice_change(self):
+        pass
+
     # Generates this module's filter object and returns it.
     def get_filter(self):
         raise NotImplementedError()
