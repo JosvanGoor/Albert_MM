@@ -59,7 +59,7 @@ class YoutubeModule(base.ModuleBase):
         # it must be a link then, start playin bojj
         # check input
         if re.match(r'^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+', args[1]):
-            if(args[1]).contains('&list='):
+            if '&list=' in args[1]:
                 await self.client.send_message(message.channel, 'This seems to be a playlist, this might take some time :)')
 
                 tasks = [work_list(args[1])]
@@ -121,7 +121,7 @@ class YoutubeModule(base.ModuleBase):
     # This method gets called when status is called on this module. This should return a string explaining the
     # runtime status of this module.
     def status(self):
-        if not self.state == state.STATE_PLAYING:
+        if not self.state == self.STATE_PLAYING:
             return 'YoutubeModule: ' + self.state
         
         msg = 'YoutubeModule - Playing audio\r\n'
