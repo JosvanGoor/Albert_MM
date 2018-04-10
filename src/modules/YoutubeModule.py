@@ -63,7 +63,7 @@ class YoutubeModule(base.ModuleBase):
             if '&list=' in args[1]:
                 await self.client.send_message(message.channel, 'This seems to be a playlist, this might take some time :)')
 
-                t = Thread(target=self.work_list, args=(args[1]))
+                t = Thread(target=self.work_list, args=(self, args[1]))
                 t.start()
 
                 #tasks = [work_list(args[1])]
