@@ -91,7 +91,13 @@ class YoutubeModule(base.ModuleBase):
     # This method gets called when status is called on this module. This should return a string explaining the
     # runtime status of this module.
     def status(self):
-        return short_status()
+        if not self.state == state.STATE_PLAYING:
+            return 'YoutubeModule: ' + self.state
+        
+        msg = 'YoutubeModule - Playing audio\r\n'
+        msg += '    Song: ' + self.song + '\r\n'
+        msg += '    queue: ' + str(len(self.queue)) + '\r\n'
+        return msg
 
     # This method gets called once every second for time based operations.
     async def update(self):
