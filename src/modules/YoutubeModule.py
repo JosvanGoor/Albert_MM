@@ -5,10 +5,10 @@ import youtube_dl
 import modules.ModuleBase as base
 
 class YoutubeModule(base.ModuleBase):
-    STATE_IDLE = 0      # not playing anything
-    STATE_PLAYING = 1   # playing a song
-    STATE_STARTING = 2  # starting up a song
-    STATE_STOPPING = 3  # cleaning up
+    STATE_IDLE = "idle"          # not playing anything
+    STATE_PLAYING = "Playing"    # playing a song
+    STATE_STARTING = "Starting"  # starting up a song
+    STATE_STOPPING = "Stopping"  # cleaning up
 
 
     def __init__(self, client):

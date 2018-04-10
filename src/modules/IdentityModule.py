@@ -13,11 +13,13 @@ class Identity(base.ModuleBase):
         self.last = 'Bakker'
         self.picture = None
         self.make_identity()
-        self.server = self.find_my_server()
+        self.server = None
+        print('Identity module initialized')
 
     # Gets called once, when the client is connected.
     async def on_ready(self):
-        self.set_identity()
+        #await self.set_identity()
+        pass
 
     # Generates this module's filter object and returns it.
     def get_filter(self):
@@ -61,15 +63,20 @@ class Identity(base.ModuleBase):
 
     # This method gets called once every second for time based operations.
     async def update(self):
-        self.tricker_count +=1
+        #self.tricker_count +=1
+
+        if not self.server:
+            self.server = self.find_my_server()
 
         if self.tricker_count % 3600 == 0:
             self.tricker_count = 0
-            self.set_identity()
+            await self.set_identity()
             self.make_identity()
+
+        self.tricker_count += 1
     
     def find_my_server(self):
-        for server in client.servers:
+        for server in self.client.servers:
             self.server = server
             return
 
@@ -94,6 +101,5 @@ class Identity(base.ModuleBase):
         except discord.errors.HTTPException:
             print('Failed to set avatar :(')
         except asyncio.TimeoutError:
-            print('Caught timeouterror!')    
-        break
+            print('Caught timeouterror!')
 
