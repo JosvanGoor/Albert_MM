@@ -49,7 +49,6 @@ class YoutubeModule(base.ModuleBase):
 
         if len(args) == 2:
             if args[1] == 'stop':
-                self.queue = []
                 self.state = self.STATE_STOPPING
                 return
 
@@ -96,7 +95,7 @@ class YoutubeModule(base.ModuleBase):
     # This method gets called when help is called on this module. This should return a string explaining the usage
     # of this module
     def help_message(self):
-        msg = '!yt: YoutubeModule\r\n'
+        msg = 'YoutubeModule help:\r\n'
         msg += 'This module allows you to play the sound of youtube videos in your current voice channel.\r\n\r\n'
         msg += 'Commands:\r\n'
         msg += '    "!yt <url>": Plays the url, or adds the url to the playqueue.\r\n'
