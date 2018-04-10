@@ -91,7 +91,7 @@ class YoutubeModule(base.ModuleBase):
             'quiet': True
         }
 
-        with youtube_dl.YoutyubeDL(ydl_opts) as ydl:
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             playlist_dict = ydl.extract_info(url, download=False)
 
         for video in playlist_dict['entries']:
