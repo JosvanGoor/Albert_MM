@@ -14,7 +14,7 @@ class ytl_worker(threading.Thread):
     def run(self):
         with yt.YoutubeDL(ydl_opts) as ydl:
 
-            playlist_dict = ydl.extract_info(url, download=False)
+            playlist_dict = ydl.extract_info(self.url, download=False)
 
             for video in playlist_dict['entries']:
 

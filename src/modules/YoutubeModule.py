@@ -67,11 +67,7 @@ class YoutubeModule(base.ModuleBase):
                 t1 = ytlw.ytl_worker(args[1])
                 t1.start()
 
-                #tasks = [work_list(args[1])]
-                #loop = asyncio.get_event_loop()
-                #loop.run_until_complete(asyncio.gather(*tasks))
-
-                await self.client.send_message(message.channel, 'Done queueu-ing playlist')
+                await asyncio.sleep(1)
 
                 if self.state == self.STATE_IDLE: # not if were busy tho
                     self.state = self.STATE_STARTING    
