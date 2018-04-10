@@ -62,9 +62,9 @@ class GeneralModule(base.ModuleBase):
         return 'GeneralModule: status ok!'
 
     def timestring(self, seconds):
-        hours = seconds % 3600
+        hours = seconds / 3600
         seconds = seconds - (hours * 3600)
-        minutes = seconds % 60
+        minutes = seconds / 60
         seconds = seconds - (minutes * 60)
         
         return str(hours) + ':' + str(minutes) + ':' + str(seconds)
