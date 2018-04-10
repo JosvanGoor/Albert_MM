@@ -42,6 +42,8 @@ class YoutubeModule(base.ModuleBase):
     # This function can return a string which will be the bot's response.
     async def handle_message(self, message):
         if not message.channel.name == 'botspam': return
+
+        self.channel = message.author.voice_channel
         self.chat = message.channel
         args = message.content.split(' ')
 
@@ -54,6 +56,20 @@ class YoutubeModule(base.ModuleBase):
             if args[1] == 'next':
                 self.state = self.STATE_STARTING
                 return
+
+            if args[1] == 'play':
+                if not self.state == self.STATE_IDLE:
+                    await self.client.send_message(message.channel, 'Already working :)')
+                elif len(self.queue) == 0:
+                    await self.client.send_message(message.channel, 'Playqueue is empty...')
+                else:
+                    self.state = self.STATE_STARTING
+                return
+                
+            if args[1] == 'reset':
+                self.state = self.STATE_STOPPING
+                self.queue = []
+                return
         
         if await super().handle_message(message):
             return
@@ -65,13 +81,8 @@ class YoutubeModule(base.ModuleBase):
                 await self.client.send_message(message.channel, 'This seems to be a playlist, this might take some time :)')
                 
                 t1 = ytlw.ytl_worker(args[1], self)
-                self.channel = message.author.voice_channel
                 t1.start()
-
                 return
-                #if self.state == self.STATE_IDLE: # not if were busy tho
-                #    self.state = self.STATE_STARTING    
-                #return
             
             self.queue.append(args[1])
             self.channel = message.author.voice_channel
@@ -80,23 +91,6 @@ class YoutubeModule(base.ModuleBase):
                 self.state = self.STATE_STARTING
         else:
             await self.client.send_message(message.channel, 'That is not a youtube url you cheeky bastard :)')
-
-
-    def work_list(self, url):
-        ydl_opts = {
-            'ignoreerrors': True,
-            'quiet': True
-        }
-
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            playlist_dict = ydl.extract_info(url, download=False)
-
-        for video in playlist_dict['entries']:
-            if not video:
-                continue
-            
-            self.queue.append('https://www.youtube.com/watch?v=' + video["id"])
-
        
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
@@ -107,7 +101,9 @@ class YoutubeModule(base.ModuleBase):
         msg += 'Commands:\r\n'
         msg += '    "!yt <url>": Plays the url, or adds the url to the playqueue.\r\n'
         msg += '    "!yt next": Skips to the next song in the queue\r\n'
-        msg += '    "!yt stop": Stops playback and clears the queue\r\n'
+        msg += '    "!yt play": Starts playback if there are songs in the queue\r\n'
+        msg += '    "!yt stop": Stops playback\r\n'
+        msg += '    "!yt reset: Stops playback and clears the queue\r\n'
         return msg
     
     def name(self):
@@ -146,7 +142,6 @@ class YoutubeModule(base.ModuleBase):
         # clean resources.
         if self.state == self.STATE_STOPPING:
             print('State = stopping')
-            self.queue = []
             self.song = ""
             self.state = self.STATE_IDLE
 
