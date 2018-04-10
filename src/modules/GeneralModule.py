@@ -62,6 +62,7 @@ class GeneralModule(base.ModuleBase):
         return 'GeneralModule: status ok!'
 
     def timestring(self, seconds):
+        seconds = int(seconds)
         hours = seconds / 3600
         seconds = seconds - (hours * 3600)
         minutes = seconds / 60
