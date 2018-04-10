@@ -3,6 +3,7 @@ import discord
 import re
 import youtube_dl
 import modules.ModuleBase as base
+import modules.YoutubeListWorker as ytlw
 from threading import Thread
 
 class YoutubeModule(base.ModuleBase):
@@ -63,9 +64,8 @@ class YoutubeModule(base.ModuleBase):
             if '&list=' in args[1]:
                 await self.client.send_message(message.channel, 'This seems to be a playlist, this might take some time :)')
                 
-                ar = args[1]
-                t = Thread(target=self.work_list, args=(ar))
-                t.start()
+                t1 = ytlw.ytl_worker(args[1])
+                t1.start()
 
                 #tasks = [work_list(args[1])]
                 #loop = asyncio.get_event_loop()
