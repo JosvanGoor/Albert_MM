@@ -59,14 +59,14 @@ class YoutubeModule(base.ModuleBase):
         # it must be a link then, start playin bojj
         # check input
         if re.match(r'^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+', args[1]):
-            if(args[1]).contains('&list='):
+            if '&list=' in args[1]:
                 await self.client.send_message(message.channel, 'This seems to be a playlist, this might take some time :)')
 
                 ydl_opts = {
                     'ignoreerrors': True,
                     'quiet': True
                 }
-                with youtube_dl.YoutyubeDL(ydl_opts) as ydl:
+                with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                     playlist_dict = ydl.extract_info(args[1], download=False)
 
                 for video in playlist_dict['entries']:
