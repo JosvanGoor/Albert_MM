@@ -3,6 +3,7 @@ import discord
 import re
 import youtube_dl
 import modules.ModuleBase as base
+from threading import Thread
 
 class YoutubeModule(base.ModuleBase):
     STATE_IDLE = "idle"          # not playing anything
@@ -62,9 +63,12 @@ class YoutubeModule(base.ModuleBase):
             if '&list=' in args[1]:
                 await self.client.send_message(message.channel, 'This seems to be a playlist, this might take some time :)')
 
-                tasks = [work_list(args[1])]
-                loop = asyncio.get_event_loop()
-                loop.run_until_complete(asyncio.gather(*tasks))
+                t = Thread(target=self.work_list, args=(args[1]))
+                t.start()
+
+                #tasks = [work_list(args[1])]
+                #loop = asyncio.get_event_loop()
+                #loop.run_until_complete(asyncio.gather(*tasks))
 
                 await self.client.send_message(message.channel, 'Done queueu-ing playlist')
 
@@ -81,7 +85,7 @@ class YoutubeModule(base.ModuleBase):
             await self.client.send_message(message.channel, 'That is not a youtube url you cheeky bastard :)')
 
 
-    async def work_list(self, url):
+    def work_list(self, url):
         ydl_opts = {
             'ignoreerrors': True,
             'quiet': True
