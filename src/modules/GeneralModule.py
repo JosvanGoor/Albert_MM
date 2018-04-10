@@ -61,11 +61,19 @@ class GeneralModule(base.ModuleBase):
     def short_status(self):
         return 'GeneralModule: status ok!'
 
+    def timestring(self, seconds):
+        hours = seconds % 3600
+        seconds = seconds - (hours * 3600)
+        minutes = seconds % 60
+        seconds = seconds - (minutes * 60)
+        
+        return str(hours) + ':' + str(minutes) + ':' + str(seconds)
+        
     # This method gets called when status is called on this module. This should return a string explaining the
     # runtime status of this module.
     def status(self):
         msg = 'Magikman bot status report:\r\n'
-        msg += 'runtime: ' + str(int(time.time()) - self.startup_time) + 's\r\n\r\n'
+        msg += 'runtime: ' + timestring(int(time.time()) - self.startup_time) + 's\r\n\r\n'
         msg += 'Modules:\r\n'
         for value in self.modules.values():
             msg += '    ' + value.short_status() + '\r\n'

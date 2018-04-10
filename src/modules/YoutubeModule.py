@@ -127,7 +127,7 @@ class YoutubeModule(base.ModuleBase):
                 self.player.stop()
                 self.player = None
 
-            song = self.queue.pop()
+            song = self.queue.pop(0)
             try:
                 if not self.voice:
                     self.voice = await self.client.join_voice_channel(self.channel)
