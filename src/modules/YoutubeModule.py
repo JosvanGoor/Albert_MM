@@ -28,6 +28,11 @@ class YoutubeModule(base.ModuleBase):
     async def on_ready(self):
         pass
 
+    async def on_voice_change(self):
+        if self.voice and len(self.voice.voice_members) == 0:
+            self.state = self.STATE_STOPPING
+
+
     # This method gets called when a command arrives that passed this module's filter
     # This function can return a string which will be the bot's response.
     async def handle_message(self, message):
@@ -77,7 +82,7 @@ class YoutubeModule(base.ModuleBase):
     # Status in 1 line (running! or error etc..)
     def short_status(self):
         if self.state == self.STATE_PLAYING:
-            return 'YoutubeModule: playing ' + self.song
+            return 'YoutubeModule: playing "' + self.song + '"'
         return 'YoutubeModule: ' + self.state
 
     # This method gets called when status is called on this module. This should return a string explaining the

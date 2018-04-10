@@ -60,5 +60,12 @@ async def on_message(message):
     
     await general_module.handle_message(message)
 
+@client.event
+async def on_voice_state_update(before, after):
+    for value in modules.values():
+        await value.on_voice_change()
+
+    await general_module.on_voice_change()
+
 # run the thing
 client.run(token.get_token())
