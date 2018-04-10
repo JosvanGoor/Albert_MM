@@ -62,21 +62,12 @@ class YoutubeModule(base.ModuleBase):
             if(args[1]).contains('&list='):
                 await self.client.send_message(message.channel, 'This seems to be a playlist, this might take some time :)')
 
-                ydl_opts = {
-                    'ignoreerrors': True,
-                    'quiet': True
-                }
-                with youtube_dl.YoutyubeDL(ydl_opts) as ydl:
-                    playlist_dict = ydl.extract_info(args[1], download=False)
-
-                for video in playlist_dict['entries']:
-                    if not video:
-                        continue
-                    
-                    self.queue.append('https://www.youtube.com/watch?v=' + video["id"])
+                tasks = [work_list(args[1])]
+                loop = asyncio.get_event_loop()
+                loop.run_until_complete(asyncio.gather(*tasks))
 
                 await self.client.send_message(message.channel, 'Done queueu-ing playlist')
-                
+
                 if self.state == self.STATE_IDLE: # not if were busy tho
                     self.state = self.STATE_STARTING    
                 return
@@ -89,6 +80,23 @@ class YoutubeModule(base.ModuleBase):
         else:
             await self.client.send_message(message.channel, 'That is not a youtube url you cheeky bastard :)')
 
+
+    async def work_list(self, url):
+        ydl_opts = {
+            'ignoreerrors': True,
+            'quiet': True
+        }
+
+        with youtube_dl.YoutyubeDL(ydl_opts) as ydl:
+            playlist_dict = ydl.extract_info(url, download=False)
+
+        for video in playlist_dict['entries']:
+            if not video:
+                continue
+            
+            self.queue.append('https://www.youtube.com/watch?v=' + video["id"])
+
+       
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
     # of this module
