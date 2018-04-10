@@ -73,7 +73,7 @@ class GeneralModule(base.ModuleBase):
     # runtime status of this module.
     def status(self):
         msg = 'Magikman bot status report:\r\n'
-        msg += 'runtime: ' + timestring(int(time.time()) - self.startup_time) + 's\r\n\r\n'
+        msg += 'runtime: ' + self.timestring(int(time.time()) - self.startup_time) + '\r\n\r\n'
         msg += 'Modules:\r\n'
         for value in self.modules.values():
             msg += '    ' + value.short_status() + '\r\n'
