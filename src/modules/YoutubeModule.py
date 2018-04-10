@@ -29,7 +29,10 @@ class YoutubeModule(base.ModuleBase):
         pass
 
     async def on_voice_change(self):
-        if self.voice and len(self.voice.voice_members) == 0:
+        if not self.voice:
+            return
+        
+        if len(self.voice.channel.voice_members) == 1:
             self.state = self.STATE_STOPPING
 
 
@@ -138,7 +141,9 @@ class YoutubeModule(base.ModuleBase):
                     self.voice = await self.client.join_voice_channel(self.channel)
                 
                 self.player = await self.voice.create_ytdl_player(song)
-                if(self.player.is_live): self.timer = -1
+                if(self.player.is_live): 
+                    self.state = self.STATE_STARTING
+                    return
                 else: self.timer = self.player.duration + 2
 
                 self.song = self.player.title
