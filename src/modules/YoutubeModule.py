@@ -91,7 +91,7 @@ class YoutubeModule(base.ModuleBase):
     # This method gets called when status is called on this module. This should return a string explaining the
     # runtime status of this module.
     def status(self):
-        if not self.state == state.STATE_PLAYING:
+        if not self.state == self.STATE_PLAYING:
             return 'YoutubeModule: ' + self.state
         
         msg = 'YoutubeModule - Playing audio\r\n'
