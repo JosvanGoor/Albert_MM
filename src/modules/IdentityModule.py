@@ -1,5 +1,6 @@
 import json
 
+import asyncio
 import discord
 import modules.ModuleBase as base
 import requests
@@ -33,15 +34,15 @@ class Identity(base.ModuleBase):
         
         args = message.content.split(' ')
         if len(args) == 1:
-            await client.send_message(message.channel, self.help_message())
+            await self.client.send_message(message.channel, self.help_message())
             return
             
         if len(args) == 2:
             if args[1] == 'help':
-                await client.send_message(message.channel, self.help_message())
+                await self.client.send_message(message.channel, self.help_message())
                 return
             if args[1] == 'status':
-                await client.send_message(message.channel, self.status())
+                await self.client.send_message(message.channel, self.status())
                 return
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
@@ -77,8 +78,7 @@ class Identity(base.ModuleBase):
     
     def find_my_server(self):
         for server in self.client.servers:
-            self.server = server
-            return
+            return server
 
     def make_identity(self):
         person = requests.get('https://randomuser.me/api/?inc=name,picture')

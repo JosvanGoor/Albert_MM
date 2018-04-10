@@ -57,7 +57,7 @@ class YoutubeModule(base.ModuleBase):
             if self.state == self.STATE_IDLE: # not if were busy tho
                 self.state = self.STATE_STARTING
         else:
-            await self.client.send_message(message.channel, 'That is not an youtube url you cheecky bastard :)')
+            await self.client.send_message(message.channel, 'That is not a youtube url you cheeky bastard :)')
 
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
