@@ -64,12 +64,14 @@ class YoutubeModule(base.ModuleBase):
             if '&list=' in args[1]:
                 await self.client.send_message(message.channel, 'This seems to be a playlist, this might take some time :)')
                 
-                t1 = ytlw.ytl_worker(args[1])
+                t1 = ytlw.ytl_worker(args[1], self)
+                self.channel = message.author.voice_channel
                 t1.start()
 
-                if self.state == self.STATE_IDLE: # not if were busy tho
-                    self.state = self.STATE_STARTING    
                 return
+                #if self.state == self.STATE_IDLE: # not if were busy tho
+                #    self.state = self.STATE_STARTING    
+                #return
             
             self.queue.append(args[1])
             self.channel = message.author.voice_channel

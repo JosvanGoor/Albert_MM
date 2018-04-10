@@ -20,15 +20,12 @@ class ytl_worker(threading.Thread):
             playlist_dict = ydl.extract_info(self.url, download=False)
 
             for video in playlist_dict['entries']:
-
-                print()
-
                 if not video:
                     print('ERROR: Unable to get info. Continuing...')
                     continue
 
-                video_links.append('https://www.youtube.com/watch?v=', video["id"]))
+                video_links.append('https://www.youtube.com/watch?v=' + video["id"])
 
-        self.ytmod.queue + video_links
+        self.ytmod.queue = self.ytmod.queue + video_links
         if self.ytmod.state == self.ytmod.STATE_IDLE: # not if were busy tho
             self.ytmod.state = self.ytmod.STATE_STARTING
