@@ -11,3 +11,4 @@ Dependencies:
     * youtube_dl
     * requests
     * asyncio
+    * \*new\* mcstatus
