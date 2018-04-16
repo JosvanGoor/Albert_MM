@@ -110,15 +110,20 @@ class YoutubeModule(base.ModuleBase):
 
     # Status in 1 line (running! or error etc..)
     def short_status(self):
+        rval = ''
         if self.state == self.STATE_PLAYING:
-            return 'YoutubeModule: playing "' + self.song + '"'
-        return 'YoutubeModule: ' + self.state
+            rval += 'YoutubeModule: playing "' + self.song + '"'
+        else:
+            rval += 'YoutubeModule: ' + self.state
+
+        rval += ' (' + str(len(self.queue)) + ' in queue)'
+        return rval
 
     # This method gets called when status is called on this module. This should return a string explaining the
     # runtime status of this module.
     def status(self):
         if not self.state == self.STATE_PLAYING:
-            return 'YoutubeModule: ' + self.state
+            return self.short_status()
         
         msg = 'YoutubeModule - Playing audio\r\n'
         msg += '    Song: ' + self.song + '\r\n'

@@ -6,14 +6,6 @@ class ModuleBase:
     def __init__(self, client):
         self.client = client
 
-    # Gets called once, when the client is connected.
-    async def on_ready(self):
-        pass
-
-    #gets called when an update happens in 'a' voice channel
-    async def on_voice_change(self):
-        pass
-
     # Generates this module's filter object and returns it.
     def get_filter(self):
         raise NotImplementedError()
@@ -44,6 +36,14 @@ class ModuleBase:
     # Returns the name of the module.
     def name(self):
         return 'Bad programming'
+
+    # Gets called once, when the client is connected.
+    async def on_ready(self):
+        pass
+
+    #gets called when an update happens in 'a' voice channel
+    async def on_voice_change(self):
+        pass
 
     # Status in 1 line (running! or error etc..)
     def short_status(self):
