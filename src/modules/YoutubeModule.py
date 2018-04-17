@@ -179,6 +179,7 @@ class YoutubeModule(base.ModuleBase):
                 self.player = await self.voice.create_ytdl_player(song)
                 if(self.player.is_live): 
                     self.state = self.STATE_STARTING
+                    #self.timer = -1
                     return
                 else: self.timer = self.player.duration + 2
 
