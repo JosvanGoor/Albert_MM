@@ -33,9 +33,16 @@ class ModuleBase:
     def help_message(self):
         raise NotImplementedError()
 
+    # Returns a server member by nickname on the server.
+    def member_by_name(self, name):
+        return None
+
+    def channel_by_name(self, name):
+        return None
+
     # Returns the name of the module.
     def name(self):
-        return 'Bad programming'
+        type(self).__name__
 
     # Gets called once, when the client is connected.
     async def on_ready(self):
