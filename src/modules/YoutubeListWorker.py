@@ -17,7 +17,7 @@ class ytl_worker(threading.Thread):
             
             video_links = []
 
-            playlist_dict = ydl.extract_info(self.url, download=False)
+            playlist_dict = ydl.extract_info(self.url, download=False, process=False)
 
             for video in playlist_dict['entries']:
                 if not video:

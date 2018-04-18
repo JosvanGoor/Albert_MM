@@ -42,7 +42,7 @@ class ModuleBase:
 
     # Returns the name of the module.
     def name(self):
-        type(self).__name__
+        return type(self).__name__
 
     # Gets called once, when the client is connected.
     async def on_ready(self):
