@@ -3,10 +3,13 @@
 class ModuleBase:
 
     # initializer, binds client handle
+    # Please initialize the modbase as follows:
+    #   super().__init__(client)
     def __init__(self, client):
         self.client = client
 
     # Generates this module's filter object and returns it.
+    # !!! - Currently an unimplemented feature.
     def get_filter(self):
         raise NotImplementedError()
 
@@ -42,7 +45,7 @@ class ModuleBase:
 
     # Returns the name of the module.
     def name(self):
-        type(self).__name__
+        return type(self).__name__
 
     # Gets called once, when the client is connected.
     async def on_ready(self):

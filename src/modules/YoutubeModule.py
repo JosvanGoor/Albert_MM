@@ -104,9 +104,6 @@ class YoutubeModule(base.ModuleBase):
         msg += '    "!yt stop": Stops playback\r\n'
         msg += '    "!yt reset: Stops playback and clears the queue\r\n'
         return msg
-    
-    def name2(self):
-        return 'YoutubeModule'
 
     # Status in 1 line (running! or error etc..)
     def short_status(self):
