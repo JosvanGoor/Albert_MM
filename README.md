@@ -12,3 +12,6 @@ Dependencies:
     * requests
     * asyncio
     * \*new\* mcstatus
+
+# Fix for mcstatus package
+https://github.com/Dinnerbone/mcstatus/pull/56/files
