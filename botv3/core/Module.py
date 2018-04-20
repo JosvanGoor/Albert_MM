@@ -8,15 +8,15 @@ import discord
 dc_client = None
 
 ''' Returns a member object by nickname on the server. '''
-def member_by_name( name):
+def member_by_name(name):
     return None
 
 ''' Returns a channel object by name on the server '''
-def channel_by_name( name):
+def channel_by_name(name):
     return None
 
 ''' Returns a emoji object by name (without colon) if it exists '''
-def emoji_by_name( code):
+def emoji_by_name(code):
     return None
 
 ################

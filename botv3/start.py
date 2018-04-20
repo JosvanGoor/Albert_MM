@@ -6,6 +6,7 @@ import core.module as module
 import core.worker as worker
 import modules.GeneralModule as gm
 import modules.IdentityModule as im
+import modules.ServerInfoModule as sim
 import modules.YoutubeModule as ym
 
 dc_client = discord.Client()
@@ -24,6 +25,7 @@ def register_modules():
 
     #modules['!command'] = Module()
     modules['!yt'] = ym.YoutubeModule()
+    modules['!info'] = sim.ServerInfoModule()
     modules['!name'] = im.IdentityModule()
 
     general_module = gm.GeneralModule(modules)

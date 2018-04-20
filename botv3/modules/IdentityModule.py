@@ -13,7 +13,7 @@ class IdentityModule(module.Module):
         self.picture = None
         self.make_identity()
         self.server = None
-        print('Identity module initialized')
+        print('IdentityModule initialized...')
 
     # Gets called once, when the client is connected.
     async def on_ready(self):
@@ -76,7 +76,6 @@ class IdentityModule(module.Module):
         await module.dc_client.change_nickname(self.server.me, name)
         try:
             await asyncio.wait_for(module.dc_client.edit_profile(avatar = self.picture), 15)
-            print('successfully changed avatar!')
         except discord.errors.HTTPException:
             print('Failed to set avatar :(')
         except asyncio.TimeoutError:

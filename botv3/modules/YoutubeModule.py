@@ -9,6 +9,8 @@ import youtube_dl
     This module is used to play youtube audio in voice channels
 '''
 
+ydl_opts = {'ignoreerrors': True, 'quiet': True }
+
 class YoutubeModule(module.Module):
     STATE_IDLE = "idle"          # not playing anything
     STATE_PLAYING = "Playing"    # playing a song
@@ -97,11 +99,6 @@ class YoutubeModule(module.Module):
             await module.dc_client.send_message(message.channel, 'That is not a youtube url you cheeky bastard :)')
     
     def youtube_list_downloader(self, url):
-        ydl_opts = {
-            'ignoreerrors': True,
-            'quiet': True
-        }
-
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             video_links = []
             playlist_dict = ydl.extract_info(url[0], download=False, process=False)
@@ -167,7 +164,6 @@ class YoutubeModule(module.Module):
         
         # clean resources.
         if self.state == self.STATE_STOPPING:
-            print('State = stopping')
             self.song = ""
             self.state = self.STATE_IDLE
 
@@ -198,7 +194,7 @@ class YoutubeModule(module.Module):
                 if not self.voice:
                     self.voice = await module.dc_client.join_voice_channel(self.channel)
                 
-                self.player = await self.voice.create_ytdl_player(song)
+                self.player = await self.voice.create_ytdl_player(song, ytdl_options=ydl_opts)
                 if(self.player.is_live): 
                     self.state = self.STATE_STARTING
                     #self.timer = -1
