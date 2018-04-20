@@ -32,6 +32,9 @@ class Task:
         with self.tasklock:
             return self.state
 
+    def name(self):
+        return self.function.__name__
+
     def run(self):
         self.set_state("running " + self.function.__name__)
         self.function(*self.arguments)

@@ -15,7 +15,7 @@ def queue_task(some_task):
     queue.put(some_task)
 
 ''' Queues a functioncall '''
-def queue_function(some_function, *args = ()):
+def queue_function(some_function, *args):
     queue.put(task.Task(some_function, args))
 
 ''' This function is the body of the workerthreads '''
@@ -26,11 +26,13 @@ def worker_function(thread_num):
         work = queue.get()
 
         # any non Task object is a kill message
-        if not isisntance(work, task.Task):
+        if not isinstance(work, task.Task):
             break
 
+        print('Workerthread {} starting {}.'.format(thread_num, work.name()))
         work.run()
         queue.task_done()
+        print('Workerthread {} finished {}.'.format(thread_num, work.name()))
     
     queue.task_done()
     print('Workerthread {} ended...'.format(thread_num))
@@ -38,7 +40,7 @@ def worker_function(thread_num):
 ''' Called once! at start to initialize the worker threads '''
 def initialize(num_threads):
     for i in range(0, num_threads):
-        t = thread.Thread(target = worker_function, args = i)
+        t = thread.Thread(target = worker_function, args = (i,))
         t.start()
         threads.append(t)
 

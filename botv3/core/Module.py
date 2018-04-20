@@ -1,29 +1,33 @@
 import discord
 
+############
+## Global ##
+############
+
+''' Static ref to the client, usable by all modules after it being set once '''
+dc_client = None
+
+''' Returns a member object by nickname on the server. '''
+def member_by_name( name):
+    return None
+
+''' Returns a channel object by name on the server '''
+def channel_by_name( name):
+    return None
+
+''' Returns a emoji object by name (without colon) if it exists '''
+def emoji_by_name( code):
+    return None
+
+################
+## Base class ##
+################
+
 '''
     This class is the baseclass for any module used by the bot.
     It contains default implementations and utility functions for communication with the server
 '''
 class Module:
-    ''' Static ref to the client, usable by all modules after it being set once '''
-    dc_client = None
-
-    ######################
-    ## Static functions ##
-    ######################
-
-    ''' Returns a member object by nickname on the server. '''
-    def member_by_name(self, name):
-        return None
-
-    ''' Returns a channel object by name on the server '''
-    def channel_by_name(self, name):
-        return None
-
-    #############
-    ## Methods ##
-    #############
-
     ''' 
         returns filter object
         !! Currently unused
@@ -38,15 +42,15 @@ class Module:
     async def handle_message(self, message):
         args = message.content.split(' ')
         if len(args) == 1:
-            await self.client.send_message(message.channel, self.help_message())
+            await dc_client.send_message(message.channel, self.help_message())
             return True
             
         if len(args) == 2:
             if args[1] == 'help':
-                await self.client.send_message(message.channel, self.help_message())
+                await dc_client.send_message(message.channel, self.help_message())
                 return True
             if args[1] == 'status':
-                await self.client.send_message(message.channel, self.status())
+                await dc_client.send_message(message.channel, self.status())
                 return True
 
         return False
@@ -60,7 +64,7 @@ class Module:
 
     ''' Returns the name of the module. '''
     def name(self):
-        type(self).__name__
+        return type(self).__name__
 
     ''' Gets called once, when the client is connected. '''
     async def on_ready(self):
