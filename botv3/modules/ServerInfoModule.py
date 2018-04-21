@@ -45,6 +45,7 @@ class ServerInfoModule(module.Module):
     def status(self):
         msg = 'ServerInfoModule status: ok!\r\n'
         msg += self.minecraft_status()
+        return msg
 
     ''' This method gets called once every second for time based operations. '''
     async def update(self):
@@ -55,13 +56,15 @@ class ServerInfoModule(module.Module):
             server_1 = mc.MinecraftServer('minecraft.wavycolt.com')
             status = server_1.status()
 
-            msg = 'Server 1 has {0} players online and replied in {1} ms, online players:\r\n'.format(status.players.online, status.latency)
+            msg = 'Server 1 has {0} players online and replied in {1} ms'.format(status.players.online, status.latency)
             if status.players.online > 0:
+                msg += ', online players:\r\n'
                 for x in status.players.sample:
                     msg += ' - {}\r\n'.format(x.name)
+            else:
+                msg += '.'
 
             return msg
         except Exception as e:
             print(e)
             return 'server_1: offline...'
-            
