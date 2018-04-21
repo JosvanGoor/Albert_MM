@@ -45,6 +45,7 @@ class ServerInfoModule(module.Module):
     def status(self):
         msg = 'ServerInfoModule status: ok!\r\n'
         msg += self.minecraft_status()
+        return msg
 
     ''' This method gets called once every second for time based operations. '''
     async def update(self):
