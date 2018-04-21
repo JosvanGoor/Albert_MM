@@ -68,3 +68,4 @@ class ServerInfoModule(module.Module):
         except Exception as e:
             print(e)
             return 'server_1: offline...'
+            
