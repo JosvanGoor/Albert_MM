@@ -43,7 +43,8 @@ class YoutubeModule(module.Module):
     # This method gets called when a command arrives that passed this module's filter
     # This function can return a string which will be the bot's response.
     async def handle_message(self, message):
-        if not message.channel.name == 'botspam': return
+        if not message.channel.name == module.chat_default.name:
+            return
 
         self.channel = message.author.voice_channel
         self.chat = message.channel

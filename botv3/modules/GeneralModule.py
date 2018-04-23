@@ -25,7 +25,8 @@ class GeneralModule(module.Module):
     # This method gets called when a command arrives that passed this module's filter
     # This function can return a string which will be the bot's response.
     async def handle_message(self, message):
-        if not message.channel.name == 'botspam': return
+        if not message.channel.name == module.chat_default.name:
+            return
 
         if message.content.startswith('!ping'):
             await module.dc_client.send_message(message.channel, 'Pong!')

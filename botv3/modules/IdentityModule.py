@@ -24,6 +24,11 @@ class IdentityModule(module.Module):
     def get_filter(self):
         return '!name'
 
+    async def handle_message(self, message):
+        if not message.channel.name == module.chat_default.name:
+            return
+        super().handle_message(message)
+
     # This method gets called when help is called on this module. This should return a string explaining the usage
     # of this module
     def help_message(self):

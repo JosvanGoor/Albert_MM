@@ -12,7 +12,8 @@ class ServerInfoModule(module.Module):
         This function can return a string which will be the bot's response.
     '''
     async def handle_message(self, message):
-        if not message.channel.name == module.chat_default.name: return
+        if not message.channel.name == module.chat_default.name:
+            return
 
         args = message.content.split(' ')
 
@@ -59,7 +60,7 @@ class ServerInfoModule(module.Module):
             server_1 = mc.MinecraftServer('minecraft.wavycolt.com')
             status = server_1.status()
 
-            msg = 'Server 1 has {0} players online and replied in {1} ms'.format(status.players.online, status.latency)
+            msg = 'Server 1: "{}" has {} players online and replied in {} ms'.format(status.description['text'], status.status.players.online, status.latency)
             if status.players.online > 0:
                 msg += ', online players:\r\n'
                 for x in status.players.sample:
