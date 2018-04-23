@@ -37,5 +37,8 @@ class Task:
 
     def run(self):
         self.set_state("running " + self.function.__name__)
-        self.function(*self.arguments)
+        if len(*self.arguments) > 0:
+            self.function(*self.arguments)
+        else:
+            self.function()
         self.set_finished()

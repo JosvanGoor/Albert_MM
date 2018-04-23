@@ -1,4 +1,5 @@
 import core.module as module
+import core.worker as worker
 import mcstatus as mc
 
 class ServerInfoModule(module.Module):
@@ -17,7 +18,7 @@ class ServerInfoModule(module.Module):
 
         if len(args) == 2:
             if args[1] == 'minecraft':
-                await module.dc_client.send_message(message.channel, self.minecraft_status())
+                worker.queue_function(self.minecraft_status)
                 return
 
         if await super().handle_message(message):
@@ -52,6 +53,8 @@ class ServerInfoModule(module.Module):
         pass
 
     def minecraft_status(self):
+        msg = ''
+        
         try:
             server_1 = mc.MinecraftServer('minecraft.wavycolt.com')
             status = server_1.status()
@@ -63,9 +66,8 @@ class ServerInfoModule(module.Module):
                     msg += ' - {}\r\n'.format(x.name)
             else:
                 msg += '.'
-
-            return msg
         except Exception as e:
             print(e)
-            return 'server_1: offline...'
-            
+            msg = 'server_1: offline...'
+
+        module.send_message_nowait(module.chat_default, msg)

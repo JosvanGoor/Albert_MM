@@ -21,7 +21,8 @@ def register_modules():
     global general_module
 
     module.dc_client = dc_client
-    worker.initialize(3)
+    module.chat_default = module.channel_by_name('botspam')
+    worker.initialize(3, asyncio.get_event_loop())
 
     #modules['!command'] = Module()
     modules['!yt'] = ym.YoutubeModule()
@@ -34,11 +35,11 @@ def register_modules():
 async def ticker():
     global modules
 
-    await asyncio.sleep(1)
-    asyncio.ensure_future(ticker())
+    while True:
+        await asyncio.sleep(1)
 
-    for mod in modules.values():
-        await mod.update()
+        for mod in modules.values():
+            await mod.update()
 
 ''' setup-on-connect '''
 @dc_client.event

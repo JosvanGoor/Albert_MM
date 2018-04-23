@@ -1,3 +1,4 @@
+import asyncio
 import discord
 
 ############
@@ -6,18 +7,30 @@ import discord
 
 ''' Static ref to the client, usable by all modules after it being set once '''
 dc_client = None
+''' Static reference to the default output chat channel '''
+chat_default = None
 
 ''' Returns a member object by nickname on the server. '''
 def member_by_name(name):
-    return None
+    for mem in get_server().members:
+        if name == mem.nick or name == mem.name or name == (mem.name + '#' + mem.discriminator):
+            print('found member by name {}: {}#{} / {}'.format(name, mem.name, mem.discriminator, mem.nick))
+            return mem
 
 ''' Returns a channel object by name on the server '''
 def channel_by_name(name):
-    return None
+    for chan in get_server().channels:
+        if chan.name == name:
+            print('found channel by name {}'.format(name))
+            return chan
 
-''' Returns a emoji object by name (without colon) if it exists '''
-def emoji_by_name(code):
-    return None
+''' Convenience function to retrieve the connected server (bot only supports being connected to one server) '''
+def get_server():
+    for s in dc_client.servers:
+        return s
+
+def send_message_nowait(channel, message):
+    asyncio.ensure_future(dc_client.send_message(channel, message))
 
 ################
 ## Base class ##

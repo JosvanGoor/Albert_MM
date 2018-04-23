@@ -1,3 +1,4 @@
+import asyncio
 import threading as thread
 import queue as q
 
@@ -19,7 +20,8 @@ def queue_function(some_function, *args):
     queue.put(task.Task(some_function, args))
 
 ''' This function is the body of the workerthreads '''
-def worker_function(thread_num):
+def worker_function(thread_num, async_loop):
+    asyncio.set_event_loop(async_loop)
     print('Workerthread {} started...'.format(thread_num))
 
     while True:
@@ -38,9 +40,9 @@ def worker_function(thread_num):
     print('Workerthread {} ended...'.format(thread_num))
 
 ''' Called once! at start to initialize the worker threads '''
-def initialize(num_threads):
+def initialize(num_threads, async_loop):
     for i in range(0, num_threads):
-        t = thread.Thread(target = worker_function, args = (i,))
+        t = thread.Thread(target = worker_function, args = (i,async_loop,))
         t.start()
         threads.append(t)
 
