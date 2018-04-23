@@ -12,7 +12,7 @@ class ServerInfoModule(module.Module):
         This function can return a string which will be the bot's response.
     '''
     async def handle_message(self, message):
-        if not message.channel.name == 'botspam': return
+        if not message.channel.name == module.chat_default.name: return
 
         args = message.content.split(' ')
 
