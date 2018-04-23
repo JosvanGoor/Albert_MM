@@ -1,5 +1,6 @@
 import discord
 import core.module as module
+import core.userdata as userdata
 import core.worker as worker
 import sys
 import time
@@ -11,12 +12,14 @@ class GeneralModule(module.Module):
     def __init__(self, modules):
         self.modules = modules
         self.startup_time = None
+        self.last_backup = 0
 
         print('GeneralModule initialized...')
 
     # Gets called once, when the client is connected.
     async def on_ready(self):
         self.startup_time = int(time.time())
+        self.last_backup = self.startup_time
 
     # Generates this module's filter object and returns it.
     def get_filter(self):
@@ -90,4 +93,7 @@ class GeneralModule(module.Module):
         
     # This method gets called once every second for time based operations.
     async def update(self):
-        pass
+        backup_delay = time.time() - self.last_backup
+        if backup_delay > (60 * 60 * 24): #24 hour
+            userdata.schedule_backup()
+            backup_delay = time.time()

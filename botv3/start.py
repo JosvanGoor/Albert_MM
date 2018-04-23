@@ -13,6 +13,11 @@ dc_client = discord.Client()
 modules = {}
 general_module = None
 
+def on_start_once():
+    for mem in get_server().members:
+        if name == mem.nick or name == mem.name or name == (mem.name + '#' + mem.discriminator):
+            return mem
+
 '''
     If connection succeeds, register modules
 '''

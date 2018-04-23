@@ -56,7 +56,7 @@ class YoutubeModule(module.Module):
                 await module.dc_client.add_reaction(message, u"\U0001F44D")
                 return
 
-            if args[1] == 'next':
+            if (args[1] == 'next') or (args[1] == 'skip'):
                 self.state = self.STATE_STARTING
                 await module.dc_client.add_reaction(message, u"\U0001F44D")
                 return
@@ -71,7 +71,7 @@ class YoutubeModule(module.Module):
                     await module.dc_client.add_reaction(message, u"\U0001F44D")
                 return
                 
-            if args[1] == 'reset':
+            if (args[1] == 'reset') or (args[1] == 'clear'):
                 self.state = self.STATE_STOPPING
                 self.queue = []
                 await module.dc_client.add_reaction(message, u"\U0001F44D")
@@ -122,8 +122,10 @@ class YoutubeModule(module.Module):
         msg += 'Commands:\r\n'
         msg += '    "!yt <url>": Plays the url, or adds the url to the playqueue.\r\n'
         msg += '    "!yt next": Skips to the next song in the queue\r\n'
+        msg += '    "!yt skip": Skips to the next song in the queue\r\n'
         msg += '    "!yt play": Starts playback if there are songs in the queue\r\n'
         msg += '    "!yt stop": Stops playback\r\n'
+        msg += '    "!yt clear: Stops playback and clears the queue\r\n'
         msg += '    "!yt reset: Stops playback and clears the queue\r\n'
         return msg
 

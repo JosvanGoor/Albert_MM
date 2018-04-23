@@ -32,3 +32,9 @@ class Serializable:
                 buffer[key] = val
         
         return buffer
+
+    '''
+        Returns wether this key is loaded as variable for this object
+    '''
+    def valid_for(self, key):
+        return hasattr(self, key)
