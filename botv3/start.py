@@ -3,6 +3,7 @@ import asyncio
 import logintoken as token
 
 import core.module as module
+import core.userdata as userdata
 import core.worker as worker
 import modules.GeneralModule as gm
 import modules.IdentityModule as im
@@ -15,8 +16,7 @@ general_module = None
 
 def on_start_once():
     for mem in get_server().members:
-        if name == mem.nick or name == mem.name or name == (mem.name + '#' + mem.discriminator):
-            return mem
+        userdata.get_user(mem.id)
 
 '''
     If connection succeeds, register modules
