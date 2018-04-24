@@ -14,10 +14,6 @@ dc_client = discord.Client()
 modules = {}
 general_module = None
 
-def on_start_once():
-    for mem in get_server().members:
-        userdata.get_user(mem.id)
-
 '''
     If connection succeeds, register modules
 '''
@@ -28,6 +24,7 @@ def register_modules():
     module.dc_client = dc_client
     module.chat_default = module.channel_by_name('botspam')
     worker.initialize(3, asyncio.get_event_loop())
+    userdata.initialize()
 
     #modules['!command'] = Module()
     modules['!yt'] = ym.YoutubeModule()
@@ -35,6 +32,8 @@ def register_modules():
     modules['!name'] = im.IdentityModule()
 
     general_module = gm.GeneralModule(modules)
+
+    on_start_once()
 
 ''' ticks 1'ce per second for modules that require time based updates '''
 async def ticker():

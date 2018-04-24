@@ -35,7 +35,7 @@ def scoot_backups():
     for i in range(8, 0, -1):
         print('scoot working file', i)
         if os.path.isfile(backup_name + str(int(i))):
-            os.rename(backup_name + str(int(i + 1)))
+            os.rename(backup_name + str(int(i)), backup_name + str(int(i + 1)))
     
     if os.path.isfile(fresh_name):
         os.rename(fresh_name, backup_name + '1')
@@ -44,7 +44,7 @@ def scoot_backups():
 def store_users():
     scoot_backups()
 
-    for key, value in users:
+    for key, value in users.items():
         users[key] = value.serialize()
 
     with open(fresh_name, 'w') as out:
@@ -74,9 +74,9 @@ def load_users():
     print('most recent store found:', filename)
     data = json.load(open(filename))
 
-    for key, value in data:
+    for key, value in data.items():
         users[key] = serializable.Serializable(value)
-        print('loaded user: ' dir(users[key]))
+        print('loaded user:', users[key].name)
     
     print('Loaded userdata: {} users'.format(len(users)))
 
@@ -84,10 +84,11 @@ def load_users():
 def create_user(uid):
     server = module.get_server()
     for member in server.members:
-        if mem.id == uid:
+        if member.id == uid:
             user = serializable.Serializable()
             user.id = uid
             user.name = member.name + '#' + str(member.discriminator)
+            print('generated data for user {}'.format(user.name))
             return user
     
     return None # no such user on server.
@@ -117,9 +118,8 @@ def get_user(uid):
     
     newuser = create_user(uid)
     if newuser:
-        newuser.name = uid
         users[uid] = newuser
-        return
+        return newuser
     
     print('User with id ' + uid + ' requested but is not present on the server!')
 
@@ -130,6 +130,7 @@ def has_user(uid):
 ''' Initializes the module's data '''
 def initialize():
     load_users()
+    atexit.register(on_exit)
 
 ''' Pushes a backup to the worker '''
 def schedule_backup():
