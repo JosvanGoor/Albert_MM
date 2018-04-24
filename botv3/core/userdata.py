@@ -77,6 +77,8 @@ def load_users():
     for key, value in data:
         users[key] = serializable.Serializable(value)
         print('loaded user: ' dir(users[key]))
+    
+    print('Loaded userdata: {} users'.format(len(users)))
 
 ''' Creates a new clean user '''
 def create_user(uid):
@@ -93,7 +95,9 @@ def create_user(uid):
 ''' Gets called when the program exits, stores userdata ''' 
 def on_exit():
     store_users()
-    print('userdata module ready for shutdown...')
+    print('***********************************')
+    print('** Userdata stored successfully! **')
+    print('***********************************')
 
 def userdata_backup_handler():
     store_users()
