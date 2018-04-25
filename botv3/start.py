@@ -33,8 +33,6 @@ def register_modules():
 
     general_module = gm.GeneralModule(modules)
 
-    on_start_once()
-
 ''' ticks 1'ce per second for modules that require time based updates '''
 async def ticker():
     global modules
