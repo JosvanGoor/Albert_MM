@@ -60,7 +60,7 @@ class ServerInfoModule(module.Module):
             server_1 = mc.MinecraftServer('minecraft.wavycolt.com')
             status = server_1.status()
 
-            msg = 'Server 1: "{}" has {} players online and replied in {} ms'.format(status.description['text'], status.status.players.online, status.latency)
+            msg = 'Server 1: "{}" has {} players online and replied in {} ms'.format(status.description['text'], status.players.online, status.latency)
             if status.players.online > 0:
                 msg += ', online players:\r\n'
                 for x in status.players.sample:
