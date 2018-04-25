@@ -28,6 +28,15 @@ class GeneralModule(module.Module):
     # This method gets called when a command arrives that passed this module's filter
     # This function can return a string which will be the bot's response.
     async def handle_message(self, message):
+        if message.content.lower().startswith('ik ben '):
+            if len(message.content) <= 7: return
+            await module.dc_client.send_message(message.channel, 'Hallo {} ik ben {}'.format(message.content[7:], module.naam))
+
+        if message.content.lower().startswith('i am '):
+            if len(message.content) <= 5: return
+            await module.dc_client.send_message(message.channel, 'Hi {} I am {}'.format(message.content[5:], module.naam))
+
+
         if not message.channel.name == module.chat_default.name:
             return
 

@@ -78,6 +78,7 @@ class IdentityModule(module.Module):
 
     async def set_identity(self):
         name = '{first} {last}'.format(first=self.first, last=self.last)
+        module.naam = name
         await module.dc_client.change_nickname(self.server.me, name)
         try:
             await asyncio.wait_for(module.dc_client.edit_profile(avatar = self.picture), 15)

@@ -9,6 +9,8 @@ import discord
 dc_client = None
 ''' Static reference to the default output chat channel '''
 chat_default = None
+''' TEMPORARY WORKAROUND '''
+naam = "Albert"
 
 ''' Returns a member object by nickname on the server. '''
 def member_by_name(name):
