@@ -30,12 +30,13 @@ class GeneralModule(module.Module):
     async def handle_message(self, message):
         if message.content.lower().startswith('ik ben '):
             if len(message.content) <= 7: return
-            await module.dc_client.send_message(message.channel, 'Hallo {} ik ben {}'.format(message.content[7:], module.naam))
+            await module.dc_client.send_message(message.channel, 'Hallo {}, ik ben {}'.format(message.content[7:], module.naam))
+            return
 
         if message.content.lower().startswith('i am '):
             if len(message.content) <= 5: return
-            await module.dc_client.send_message(message.channel, 'Hi {} I am {}'.format(message.content[5:], module.naam))
-
+            await module.dc_client.send_message(message.channel, 'Hi {}, I am {}'.format(message.content[5:], module.naam))
+            return
 
         if not message.channel.name == module.chat_default.name:
             return

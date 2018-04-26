@@ -25,6 +25,15 @@ class IdentityModule(module.Module):
         return '!name'
 
     async def handle_message(self, message):
+        args = message.content.split(' ')
+
+        if(len(args) == 2):
+            if args[2] == 'me':
+                await module.dc_client.change_nickname(message.author, '{} {}'.format(self.first, self.last))
+                self.make_identity()
+                return
+
+
         if not message.channel.name == module.chat_default.name:
             return
         super().handle_message(message)
@@ -33,8 +42,10 @@ class IdentityModule(module.Module):
     # of this module
     def help_message(self):
         msg = 'IdentityModule help:\r\n'
-        msg += '    Creates and sets the identity of this bot\r\n'
-        msg += '    Has no interactions with users and no inputs'
+        msg += '    Creates and sets the identity of this bot\r\n\r\n'
+        msg += 'Commands:\r\n'
+        msg += '    "!name me" to let me pick a new name for you'
+        
         return msg
 
     # Status in 1 line (running! or error etc..)

@@ -5,6 +5,7 @@ import logintoken as token
 import core.module as module
 import core.userdata as userdata
 import core.worker as worker
+import modules.BetModule as bm
 import modules.GeneralModule as gm
 import modules.IdentityModule as im
 import modules.ServerInfoModule as sim
@@ -30,6 +31,7 @@ def register_modules():
     modules['!yt'] = ym.YoutubeModule()
     modules['!info'] = sim.ServerInfoModule()
     modules['!name'] = im.IdentityModule()
+    modules['!bet'] = bm.BetModule()
 
     general_module = gm.GeneralModule(modules)
 
