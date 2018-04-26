@@ -25,6 +25,9 @@ class IdentityModule(module.Module):
         return '!name'
 
     async def handle_message(self, message):
+        if not message.channel.name == module.chat_default.name:
+            return
+
         args = message.content.split(' ')
 
         if(len(args) == 2):
@@ -32,11 +35,8 @@ class IdentityModule(module.Module):
                 await module.dc_client.change_nickname(message.author, '{} {}'.format(self.first, self.last))
                 self.make_identity()
                 return
-
-
-        if not message.channel.name == module.chat_default.name:
-            return
-        super().handle_message(message)
+        
+        await super().handle_message(message)
 
     # This method gets called when help is called on this module. This should return a string explaining the usage
     # of this module
