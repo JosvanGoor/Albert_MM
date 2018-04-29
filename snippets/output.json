@@ -1,0 +1,800 @@
+{
+    "t": "READY",
+    "s": 1,
+    "op": 0,
+    "d": {
+        "v": 6,
+        "user_settings": {},
+        "user": {
+            "verified": true,
+            "username": "Alberto",
+            "mfa_enabled": false,
+            "id": "439799408595435520",
+            "email": null,
+            "discriminator": "4953",
+            "bot": true,
+            "avatar": null
+        },
+        "session_id": "717084b8e927b0ad6205c38c23261d20",
+        "relationships": [],
+        "private_channels": [],
+        "presences": [],
+        "guilds": [
+            {
+                "unavailable": true,
+                "id": "431111688037597195"
+            }
+        ],
+        "_trace": [
+            "gateway-prd-main-bdj3",
+            "discord-sessions-prd-1-4"
+        ]
+    }
+}
+
+{
+    "t": "GUILD_CREATE",
+    "s": 2,
+    "op": 0,
+    "d": {
+        "voice_states": [],
+        "verification_level": 0,
+        "unavailable": false,
+        "system_channel_id": "431111688037597197",
+        "splash": null,
+        "roles": [
+            {
+                "position": 0,
+                "permissions": 104320065,
+                "name": "@everyone",
+                "mentionable": false,
+                "managed": false,
+                "id": "431111688037597195",
+                "hoist": false,
+                "color": 0
+            },
+            {
+                "position": 5,
+                "permissions": 2146958591,
+                "name": "Broodje Frikadel",
+                "mentionable": true,
+                "managed": false,
+                "id": "431164012097568770",
+                "hoist": true,
+                "color": 15277667
+            },
+            {
+                "position": 2,
+                "permissions": 104320065,
+                "name": "Bammetje",
+                "mentionable": true,
+                "managed": false,
+                "id": "431165983881953310",
+                "hoist": true,
+                "color": 3447003
+            },
+            {
+                "position": 4,
+                "permissions": 104324163,
+                "name": "Superbam",
+                "mentionable": true,
+                "managed": false,
+                "id": "431506178808217612",
+                "hoist": true,
+                "color": 2750218
+            },
+            {
+                "position": 3,
+                "permissions": 104324161,
+                "name": "Ruimschoots Hoofd",
+                "mentionable": true,
+                "managed": false,
+                "id": "431511003881144340",
+                "hoist": true,
+                "color": 10181046
+            },
+            {
+                "position": 1,
+                "permissions": 8,
+                "name": "MagikMan",
+                "mentionable": false,
+                "managed": true,
+                "id": "432175480104550431",
+                "hoist": true,
+                "color": 1752220
+            }
+        ],
+        "region": "eu-central",
+        "presences": [
+            {
+                "user": {
+                    "id": "186944876196134912"
+                },
+                "status": "online",
+                "game": null
+            },
+            {
+                "user": {
+                    "id": "262694147536715789"
+                },
+                "status": "online",
+                "game": {
+                    "type": 0,
+                    "timestamps": {
+                        "start": 1525007319385
+                    },
+                    "name": "Battlefield 1"
+                }
+            },
+            {
+                "user": {
+                    "id": "314433821049356290"
+                },
+                "status": "idle",
+                "game": {
+                    "type": 0,
+                    "timestamps": {
+                        "start": 1524988037971
+                    },
+                    "name": "The Sims 4"
+                }
+            },
+            {
+                "user": {
+                    "id": "342446113988804608"
+                },
+                "status": "online",
+                "game": {
+                    "type": 0,
+                    "timestamps": {
+                        "start": 1525007128345
+                    },
+                    "name": "Idle Champions of the Forgotten Realms"
+                }
+            },
+            {
+                "user": {
+                    "id": "406073709879885831"
+                },
+                "status": "online",
+                "game": null
+            },
+            {
+                "user": {
+                    "id": "431156323934142480"
+                },
+                "status": "idle",
+                "game": null
+            },
+            {
+                "user": {
+                    "id": "432173429446410243"
+                },
+                "status": "online",
+                "game": null
+            },
+            {
+                "user": {
+                    "id": "439799408595435520"
+                },
+                "status": "online",
+                "game": null
+            }
+        ],
+        "owner_id": "153511530284056576",
+        "name": "Best At Mediocre Discord",
+        "mfa_level": 0,
+        "members": [
+            {
+                "user": {
+                    "username": "Agalloch",
+                    "id": "133649947127054337",
+                    "discriminator": "1523",
+                    "avatar": "e0a923d041acc63b906545d470c4b0f3"
+                },
+                "roles": [],
+                "nick": null,
+                "mute": false,
+                "joined_at": "2018-04-11T18:08:33.537960+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "nohow",
+                    "id": "153511530284056576",
+                    "discriminator": "4133",
+                    "avatar": "2767fa55d538c48c9ee8006879c9d5a1"
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "nick": "Koen",
+                "mute": false,
+                "joined_at": "2018-04-04T17:19:57.158000+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "Wavycolt",
+                    "id": "186944876196134912",
+                    "discriminator": "7327",
+                    "avatar": "e0f3cc2cdc4c0b32854c34a04cf4cc96"
+                },
+                "roles": [
+                    "431164012097568770",
+                    "431165983881953310"
+                ],
+                "nick": null,
+                "mute": false,
+                "joined_at": "2018-04-04T15:23:56.146000+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "Lyanden",
+                    "id": "186947454032150530",
+                    "discriminator": "8355",
+                    "avatar": "894a56c4941431080059023ca055f613"
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "nick": null,
+                "mute": false,
+                "joined_at": "2018-04-07T19:18:49.589693+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "Kwarkbakje/Robert",
+                    "id": "202119009791901697",
+                    "discriminator": "3769",
+                    "avatar": null
+                },
+                "roles": [
+                    "431165983881953310",
+                    "431511003881144340"
+                ],
+                "mute": false,
+                "joined_at": "2018-04-04T17:58:25.135000+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "finalmichiel",
+                    "id": "203148444380954624",
+                    "discriminator": "2089",
+                    "avatar": "13b20d4b4adb1c586bfadaaefe81269a"
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "mute": false,
+                "joined_at": "2018-04-05T17:08:04.325000+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "Woundrak / Wouter",
+                    "id": "230748265228926976",
+                    "discriminator": "9839",
+                    "avatar": "cf04e230ad561fda13ddbc6cbb16806d"
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "mute": false,
+                "joined_at": "2018-04-04T16:52:37.452000+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "KhanOfSoda",
+                    "id": "262694147536715789",
+                    "discriminator": "2638",
+                    "avatar": "1fc84a5f033f8786d61f0c414825f20a"
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "nick": "Khan / JW",
+                "mute": false,
+                "joined_at": "2018-04-04T18:48:49.044000+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "XeroFox",
+                    "id": "305352654115045376",
+                    "discriminator": "9946",
+                    "avatar": null
+                },
+                "roles": [],
+                "nick": null,
+                "mute": false,
+                "joined_at": "2018-04-23T13:53:04.767083+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "Binny",
+                    "id": "314433821049356290",
+                    "discriminator": "0812",
+                    "avatar": null
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "nick": null,
+                "mute": false,
+                "joined_at": "2018-04-19T19:11:54.405796+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "flokkiej",
+                    "id": "321613328155934731",
+                    "discriminator": "5776",
+                    "avatar": "b90826f94454de30a1ec8157dba8158f"
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "mute": false,
+                "joined_at": "2018-04-05T17:40:37.318000+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "Hosselhof",
+                    "id": "342446113988804608",
+                    "discriminator": "3513",
+                    "avatar": "15f8339c956ed366ff452f00b15de560"
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "nick": null,
+                "mute": false,
+                "joined_at": "2018-04-08T10:10:06.319724+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "\u269c N!ls / K!N9 \u269c",
+                    "id": "406073709879885831",
+                    "discriminator": "9602",
+                    "avatar": "d82acb2c97f1e193da93e1bd1335510e"
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "mute": false,
+                "joined_at": "2018-04-04T15:25:35.823000+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "Surreal",
+                    "id": "418868110251130883",
+                    "discriminator": "7572",
+                    "avatar": "03ece24edb915e73cde24faeb5d26b7b"
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "nick": null,
+                "mute": false,
+                "joined_at": "2018-04-17T17:25:14.939681+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "bRamZes",
+                    "id": "420190278671007744",
+                    "discriminator": "1396",
+                    "avatar": "b1c3061ce381455c0748a5ea36a2f264"
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "nick": null,
+                "mute": false,
+                "joined_at": "2018-04-21T11:46:09.309448+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "Boerenkool",
+                    "id": "431156323934142480",
+                    "discriminator": "8539",
+                    "avatar": null
+                },
+                "roles": [
+                    "431165983881953310",
+                    "431506178808217612"
+                ],
+                "mute": false,
+                "joined_at": "2018-04-04T18:30:35.549000+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "MagikMan",
+                    "id": "432173429446410243",
+                    "discriminator": "8140",
+                    "bot": true,
+                    "avatar": "d291ef5056ed8762199823f76f3efb9e"
+                },
+                "roles": [
+                    "432175480104550431"
+                ],
+                "nick": "Cecilie Christiansen",
+                "mute": false,
+                "joined_at": "2018-04-07T13:51:03.955605+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "SirPsychoSexy01",
+                    "id": "432289577848537088",
+                    "discriminator": "0218",
+                    "avatar": null
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "nick": "SirPsychoSexy01 / Ludo",
+                "mute": false,
+                "joined_at": "2018-04-07T21:26:40.089481+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "ShomerShabbes",
+                    "id": "438813121482588180",
+                    "discriminator": "2669",
+                    "avatar": null
+                },
+                "roles": [],
+                "nick": null,
+                "mute": false,
+                "joined_at": "2018-04-25T21:27:15.851438+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "naamlooss",
+                    "id": "439516495425568788",
+                    "discriminator": "9968",
+                    "avatar": "38340851abbe4b4a3f322f7f30368b9c"
+                },
+                "roles": [
+                    "431165983881953310"
+                ],
+                "nick": null,
+                "mute": false,
+                "joined_at": "2018-04-27T20:14:19.894037+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "thescorpi0n",
+                    "id": "439743284395507723",
+                    "discriminator": "5942",
+                    "avatar": null
+                },
+                "roles": [],
+                "nick": null,
+                "mute": false,
+                "joined_at": "2018-04-28T11:03:31.212893+00:00",
+                "deaf": false
+            },
+            {
+                "user": {
+                    "username": "Alberto",
+                    "id": "439799408595435520",
+                    "discriminator": "4953",
+                    "bot": true,
+                    "avatar": null
+                },
+                "roles": [],
+                "nick": null,
+                "mute": false,
+                "joined_at": "2018-04-28T14:46:29.700530+00:00",
+                "deaf": false
+            }
+        ],
+        "member_count": 22,
+        "lazy": false,
+        "large": false,
+        "joined_at": "2018-04-28T14:46:29.700530+00:00",
+        "id": "431111688037597195",
+        "icon": "d0abef30ae51c6415ffc0c0eafc2b126",
+        "features": [],
+        "explicit_content_filter": 0,
+        "emojis": [
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "czgrn",
+                "managed": false,
+                "id": "432846937088327680",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "bred",
+                "managed": false,
+                "id": "436472564076773386",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "mc",
+                "managed": false,
+                "id": "436475730776555521",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "kappa",
+                "managed": false,
+                "id": "436476665418481664",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "czred",
+                "managed": false,
+                "id": "436477877593309185",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "czpurp",
+                "managed": false,
+                "id": "436477915849293834",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "czorng",
+                "managed": false,
+                "id": "436477955871342593",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "czyel",
+                "managed": false,
+                "id": "436478003527024640",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "czblue",
+                "managed": false,
+                "id": "436478031889170451",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "csgo",
+                "managed": false,
+                "id": "436478735189803021",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "pride",
+                "managed": false,
+                "id": "436479906067513345",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "dink",
+                "managed": false,
+                "id": "436480387364028416",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "pen",
+                "managed": false,
+                "id": "436480436399505408",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "ak47",
+                "managed": false,
+                "id": "436480601894420480",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "salt",
+                "managed": false,
+                "id": "436482371458695168",
+                "animated": false
+            },
+            {
+                "roles": [],
+                "require_colons": true,
+                "name": "czgrey",
+                "managed": false,
+                "id": "436567530006642688",
+                "animated": false
+            }
+        ],
+        "default_message_notifications": 0,
+        "channels": [
+            {
+                "user_limit": 0,
+                "type": 4,
+                "position": 0,
+                "permission_overwrites": [],
+                "name": "Text Channels",
+                "id": "431111688037597196",
+                "bitrate": 64000
+            },
+            {
+                "type": 0,
+                "topic": null,
+                "position": 0,
+                "permission_overwrites": [],
+                "parent_id": "431111688037597196",
+                "name": "general",
+                "last_pin_timestamp": "2018-04-15T22:02:55.836009+00:00",
+                "last_message_id": "440129693052567554",
+                "id": "431111688037597197"
+            },
+            {
+                "user_limit": 0,
+                "type": 4,
+                "position": 0,
+                "permission_overwrites": [],
+                "name": "Voice Channels",
+                "id": "431111688037597198",
+                "bitrate": 64000
+            },
+            {
+                "user_limit": 0,
+                "type": 2,
+                "position": 0,
+                "permission_overwrites": [],
+                "parent_id": "431111688037597198",
+                "name": "General",
+                "id": "431111688037597199",
+                "bitrate": 64000
+            },
+            {
+                "user_limit": 0,
+                "type": 2,
+                "position": 1,
+                "permission_overwrites": [
+                    {
+                        "type": "role",
+                        "id": "431111688037597195",
+                        "deny": 2097152,
+                        "allow": 0
+                    }
+                ],
+                "parent_id": "431111688037597198",
+                "name": "AFK",
+                "id": "431113210016432128",
+                "bitrate": 64000
+            },
+            {
+                "user_limit": 0,
+                "type": 4,
+                "position": 1,
+                "permission_overwrites": [],
+                "name": "Games",
+                "id": "431150505335586816",
+                "bitrate": 64000
+            },
+            {
+                "user_limit": 0,
+                "type": 2,
+                "position": 3,
+                "permission_overwrites": [
+                    {
+                        "type": "role",
+                        "id": "431111688037597195",
+                        "deny": 0,
+                        "allow": 0
+                    }
+                ],
+                "parent_id": "431150505335586816",
+                "nsfw": false,
+                "name": "zonchannelvoorgamen",
+                "id": "431150647073701908",
+                "bitrate": 64000
+            },
+            {
+                "user_limit": 0,
+                "type": 2,
+                "position": 4,
+                "permission_overwrites": [],
+                "parent_id": "431150505335586816",
+                "name": "de snackbar mag niet ontbreken",
+                "id": "431152589858406421",
+                "bitrate": 64000
+            },
+            {
+                "type": 0,
+                "topic": null,
+                "position": 2,
+                "permission_overwrites": [],
+                "parent_id": "431111688037597196",
+                "nsfw": false,
+                "name": "de-dankste-memes",
+                "last_message_id": "439051546840399873",
+                "id": "431165691303821332"
+            },
+            {
+                "user_limit": 0,
+                "type": 2,
+                "position": 2,
+                "permission_overwrites": [],
+                "parent_id": "431150505335586816",
+                "name": "Meer random channels",
+                "id": "431171397981569025",
+                "bitrate": 64000
+            },
+            {
+                "type": 0,
+                "topic": null,
+                "position": 3,
+                "permission_overwrites": [],
+                "parent_id": "431111688037597196",
+                "nsfw": false,
+                "name": "gamedeals-no-preordersearly-access",
+                "last_message_id": "439080246357131267",
+                "id": "431378613837758464"
+            },
+            {
+                "type": 0,
+                "topic": null,
+                "position": 4,
+                "permission_overwrites": [],
+                "parent_id": "431111688037597196",
+                "nsfw": false,
+                "name": "botspam",
+                "last_message_id": "439873573906022411",
+                "id": "432187987506364417"
+            },
+            {
+                "type": 0,
+                "topic": null,
+                "position": 1,
+                "permission_overwrites": [],
+                "parent_id": "431111688037597196",
+                "nsfw": false,
+                "name": "e-sports",
+                "last_message_id": "437559124902019072",
+                "id": "433955908481974273"
+            }
+        ],
+        "application_id": null,
+        "afk_timeout": 300,
+        "afk_channel_id": null
+    }
+}
