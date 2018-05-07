@@ -69,6 +69,36 @@ class ServerInfoModule(module.Module):
                 msg += '.'
         except Exception as e:
             print(e)
-            msg = 'server_1: offline...'
+            msg = 'Server 1: offline...'
+
+        try:
+            server_1 = mc.MinecraftServer('minecraft.wavycolt.com', 25570)
+            status = server_1.status()
+
+            msg = 'Server 1: "{}" has {} players online and replied in {} ms'.format(status.description['text'], status.players.online, status.latency)
+            if status.players.online > 0:
+                msg += ', online players:\r\n'
+                for x in status.players.sample:
+                    msg += ' - {}\r\n'.format(x.name)
+            else:
+                msg += '.'
+        except Exception as e:
+            print(e)
+            msg = 'Server 2: offline...'
+
+        try:
+            server_1 = mc.MinecraftServer('minecraft.wavycolt.com', 25575)
+            status = server_1.status()
+
+            msg = 'Server 1: "{}" has {} players online and replied in {} ms'.format(status.description['text'], status.players.online, status.latency)
+            if status.players.online > 0:
+                msg += ', online players:\r\n'
+                for x in status.players.sample:
+                    msg += ' - {}\r\n'.format(x.name)
+            else:
+                msg += '.'
+        except Exception as e:
+            print(e)
+            msg = 'Server 3: offline...'
 
         module.send_message_nowait(module.chat_default, msg)

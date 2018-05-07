@@ -25,7 +25,6 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 socket = websocket.WebSocket()
-socket.settimeout(7200) # 2 uur should do it?
 
 url = get_weblink(tokens.get_token())["url"]
 print('Connection: ' + url)
@@ -52,7 +51,10 @@ while True:
             print(response)
             json.dump(response, file, indent=4)
 
-        print()
+        print('************************************************************')
+        print('************************************************************')
+        print('************************************************************')
+        print('************************************************************')
         print('received something: ')
         print(response)
 
