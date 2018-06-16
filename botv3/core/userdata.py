@@ -47,7 +47,7 @@ def store_users():
     for key, value in users.items():
         users[key] = value.serialize()
 
-    with open(fresh_name, 'w') as out:
+    with open(fresh_name, 'w+') as out:
         json.dump(users, out)
 
 ''' Finds the most recent file thats been stored '''

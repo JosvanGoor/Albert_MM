@@ -1,7 +1,9 @@
-import discord
 import asyncio
-import logintoken as token
+import discord
+import signal
+import sys
 
+import logintoken as token
 import core.module as module
 import core.userdata as userdata
 import core.worker as worker
@@ -10,10 +12,21 @@ import modules.GeneralModule as gm
 import modules.IdentityModule as im
 import modules.ServerInfoModule as sim
 import modules.YoutubeModule as ym
+import modules.StreamModule as sm
 
 dc_client = discord.Client()
 modules = {}
 general_module = None
+
+def shutdown(loop):
+    for task in asyncio.Task.all_tasks():
+        task.cancel()
+
+def _ctrlc_handler(signal, frame):
+    print("Caught ctrl+c signal...")
+    worker.finalize()
+    shutdown(None)
+    
 
 '''
     If connection succeeds, register modules
@@ -21,6 +34,8 @@ general_module = None
 def register_modules():
     global dc_client
     global general_module
+    
+    signal.signal(signal.SIGINT, _ctrlc_handler)
 
     module.dc_client = dc_client
     module.chat_default = module.channel_by_name('botspam')
@@ -32,6 +47,7 @@ def register_modules():
     modules['!info'] = sim.ServerInfoModule()
     modules['!name'] = im.IdentityModule()
     modules['!bet'] = bm.BetModule()
+    modules["!stream"] = sm.StreamModule(module.channel_by_name('e-sports'))
 
     general_module = gm.GeneralModule(modules)
 
