@@ -77,15 +77,15 @@ class StreamModule(module.Module):
             print("Checking online status!")
 
             data = self._load_state()
-            print("DATA:\r\n{}".format(json.dumps(data, indent = 4)))
-            print("STREAMS:\r\n{}".format(json.dumps(self._streams, indent = 4)))
+            #print("DATA:\r\n{}".format(json.dumps(data, indent = 4)))
+            #print("STREAMS:\r\n{}".format(json.dumps(self._streams, indent = 4)))
 
             for key, value in self._streams.items():
                 if value["id"] in data:
                     if value["online"]:
                         continue
                     value["online"] = True
-                    msg = "{} has just come online on twitch!\r\n    Title: {}\r\n    Url: {}"
+                    msg = "{} has just started streaming on twitch!\r\n    Title: {}\r\n    Url: {}"
                     msg = msg.format(key, data[value["id"]]["title"], "https://twitch.tv/{}".format(key))
                     await module.dc_client.send_message(self._channel, msg)
                 else:
