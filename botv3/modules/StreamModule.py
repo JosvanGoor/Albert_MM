@@ -19,6 +19,8 @@ class StreamModule(module.Module):
         for key, value in self._streams.items():
             if key in data:
                 value["online"] = True
+            else:
+                value["online"] = False
 
     #####
     #   MODULE OVERWRITES
@@ -65,6 +67,7 @@ class StreamModule(module.Module):
         msg += "    - add <stream url>: Adds a stream to the watchlist\r\n"
         msg += "    - remove <stream url>: Removes a stream from the watchlist\r\n"
         msg += "    - list: Shows a list of tracked streams\r\n"
+        return msg
 
     ''' Status in 1 line (running! or error etc..) '''
     def short_status(self):
