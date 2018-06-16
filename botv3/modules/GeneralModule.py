@@ -33,9 +33,23 @@ class GeneralModule(module.Module):
             await module.dc_client.send_message(message.channel, 'Hallo {}, ik ben {}'.format(message.content[7:], module.naam))
             return
 
+        if message.content.lower().startswith('im '):
+            if len(message.content) <= 3: return
+            await module.dc_client.send_message(message.channel, 'Hi {}, I am {}'.format(message.content[5:], module.naam))
+            return
+
+        if message.content.lower().startswith('i\'m '):
+            if len(message.content) <= 4: return
+            await module.dc_client.send_message(message.channel, 'Hi {}, I am {}'.format(message.content[5:], module.naam))
+            return
+
         if message.content.lower().startswith('i am '):
             if len(message.content) <= 5: return
             await module.dc_client.send_message(message.channel, 'Hi {}, I am {}'.format(message.content[5:], module.naam))
+            return
+
+        if message.content == '#':
+            await module.dc_client.send_message(message.channel, 'Rekt!')
             return
 
         if not message.channel.name == module.chat_default.name:

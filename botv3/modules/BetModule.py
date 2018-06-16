@@ -67,6 +67,11 @@ class BetModule(module.Module):
                     await module.dc_client.send_message(message.channel, 'eem nomoal...')
                     return
 
+                if value < 1:
+                    await module.dc_client.send_message(message.channel, 'noooooooope!')
+                    return
+
+                
                 await module.dc_client.send_message(message.channel, msg.format(message.author.name, value))
 
                 self.timer = 15
@@ -173,9 +178,13 @@ class BetModule(module.Module):
             for i in range(0, len(self.players)):
                 msg += '    {}: {}\r\n'.format(self.players[i].name, scores[i])
             
-            msg += '\r\nLoser {} has lost {} gold to winner {}'.format(playermin.name, max - min, playermax.name)
-            self.state = self.STATE_COOLDOWN
-            self.timer = 5
+            if not playermin or not playermax:
+                print("PLAYERMIN / PLAYERMAX NOT SET")
+                msg += "An internal error occured..."
+            else:
+                msg += '\r\nLoser {} has lost {} gold to winner {}'.format(playermin.name, max - min, playermax.name)
+                self.state = self.STATE_COOLDOWN
+                self.timer = 5
             await module.dc_client.send_message(module.chat_default, msg)
 
             return
