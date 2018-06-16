@@ -43,8 +43,13 @@ class StreamModule(module.Module):
 
         if len(args) == 2:
             if args[1] == "list":
-                lst = "\r\n    - ".join(self._streams.keys())
-                msg = "Tracking the following streams:\r\n    {}".format(lst)
+                msg = "Tracking the following streams:\r\n"
+                for key, value in self._streams.items():
+                    msg += "    - {}".format(key)
+                    if value["online"]:
+                        msg += " (online)\r\n"
+                    else: msg += "\r\n"
+
                 await module.dc_client.send_message(self._channel, msg)
 
         await super().handle_message(message)
@@ -54,7 +59,12 @@ class StreamModule(module.Module):
         It should return a string explaining the usage of this module
     '''
     def help_message(self):
-        return "StreamModule help:\r\nWIP"
+        msg = "StreamModule help:\r\n"
+        msg += "This module sends a notification to the e-sports channel when a tracked stream goes online!\r\n\r\n"
+        msg += "Commands:\r\n"
+        msg += "    - add <stream url>: Adds a stream to the watchlist\r\n"
+        msg += "    - remove <stream url>: Removes a stream from the watchlist\r\n"
+        msg += "    - list: Shows a list of tracked streams\r\n"
 
     ''' Status in 1 line (running! or error etc..) '''
     def short_status(self):
