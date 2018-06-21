@@ -2,4 +2,5 @@
 __pycache__/
 **/run.sh
 /test/
-**/data/
+StreamModule.json
+userdata.*

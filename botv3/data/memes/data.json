@@ -1,0 +1,241 @@
+{
+    "scumbag_steve" :
+    {
+        "file" : "scumbag_steve.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+    
+    "not_simply" : 
+    {
+        "file" : "not_simply.jpg",
+        "font_sizes" : [45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "first_world" :
+    {
+        "file" : "first_world.jpg",
+        "font_sizes" : [45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "wonka" :
+    {
+        "file" : "wonka.jpg",
+        "font_sizes" : [45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "fry" :
+    {
+        "file" : "fry.jpg",
+        "font_sizes" : [45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "doge" :
+    {
+        "file" : "doge.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "think_about" :
+    {
+        "file" : "think_about.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "facepalm" :
+    {
+        "file" : "facepalm.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "kermit_nobiz" :
+    {
+        "file" : "kermit_nobiz.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "brace_yourselves" :
+    {
+        "file" : "brace_yourselves.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "bad_luck" :
+    {
+        "file" : "bad_luck.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "aliens" :
+    {
+        "file" : "aliens.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "awkward_seal" :
+    {
+        "file" : "awkward_seal.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "awkward_kid" :
+    {
+        "file" : "awkward_kid.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "bachelor_frog" :
+    {
+        "file" : "bachelor_frog.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "bachelorette_frog" :
+    {
+        "file" : "bachelorette_frog.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "that_be_great" :
+    {
+        "file" : "that_be_great.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "ducreux" :
+    {
+        "file" : "ducreux.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "ermagerd" :
+    {
+        "file" : "ermagerd.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "good_greg" :
+    {
+        "file" : "good_greg.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "insanity_wolf" :
+    {
+        "file" : "insanity_wolf.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "should_buy" :
+    {
+        "file" : "should_buy.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "success_baby" :
+    {
+        "file" : "success_baby.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "not_always" :
+    {
+        "file" : "not_always.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "high_guy" :
+    {
+        "file" : "high_guy.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "had_one" :
+    {
+        "file" : "had_one.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "its_gone" :
+    {
+        "file" : "its_gone.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "feel_bad" :
+    {
+        "file" : "feel_bad.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "everywhere" :
+    {
+        "file" : "everywhere.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    },
+
+    "why_tf" :
+    {
+        "file" : "why_tf.jpg",
+        "font_sizes" : [52, 45, 38, 31, 24],
+        "format" : "default",
+        "format_info" : null
+    }
+}

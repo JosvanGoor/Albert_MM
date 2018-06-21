@@ -13,6 +13,7 @@ import modules.IdentityModule as im
 import modules.ServerInfoModule as sim
 import modules.YoutubeModule as ym
 import modules.StreamModule as sm
+import modules.MemeModule as meme
 
 dc_client = discord.Client()
 modules = {}
@@ -47,6 +48,7 @@ def register_modules():
     modules['!info'] = sim.ServerInfoModule()
     modules['!name'] = im.IdentityModule()
     modules['!bet'] = bm.BetModule()
+    modules['!meme'] = meme.MemeModule()
     modules["!stream"] = sm.StreamModule(module.channel_by_name('e-sports'))
 
     general_module = gm.GeneralModule(modules)
