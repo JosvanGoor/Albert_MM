@@ -87,8 +87,6 @@ class StreamModule(module.Module):
         if(self._ticker == 60):
             self._ticker = 0
 
-            print("Checking online status!")
-
             data = self._load_state()
             #print("DATA:\r\n{}".format(json.dumps(data, indent = 4)))
             #print("STREAMS:\r\n{}".format(json.dumps(self._streams, indent = 4)))

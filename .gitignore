@@ -4,3 +4,4 @@ __pycache__/
 /test/
 StreamModule.json
 userdata.*
+**/temporary_image.png

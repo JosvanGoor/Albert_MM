@@ -229,13 +229,5 @@
         "font_sizes" : [52, 45, 38, 31, 24],
         "format" : "default",
         "format_info" : null
-    },
-
-    "why_tf" :
-    {
-        "file" : "why_tf.jpg",
-        "font_sizes" : [52, 45, 38, 31, 24],
-        "format" : "default",
-        "format_info" : null
     }
 }
