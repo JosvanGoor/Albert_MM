@@ -11,6 +11,8 @@ class MemeModule(module.Module):
     def __init__(self):
         self.load_db()
 
+        print("MemeModule initialized...")
+
     async def handle_message(self, message):
         #if not message.channel.name == "de-dankste-memes":
         #    return

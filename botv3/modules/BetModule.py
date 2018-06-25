@@ -1,86 +1,162 @@
-import core.module as module
 import re
 import random
+from operator import itemgetter
 
-starting_gold = 100
-cooldown_time = 5
+import core.module as module
+import modules.CashmoneyModule as cash
 
-def is_int(s):
-    return re.match(r"[-+]?\d+$", s) is not None
+def is_int(input):
+    return re.match(r"[-+]?\d+$", input) is not None
 
-class BetModule(module.Module):
-    STATE_IDLE = 'idle'
-    STATE_GAME = 'running game'
-    STATE_FINSHED = 'finishing game'
-    STATE_COOLDOWN = 'cooling down'
+STATE_IDLE = "idle"
+STATE_INGAME = "running game"
+STATE_FINISHED = "finishing game"
+STATE_COOLDOWN = "cooling down"
+
+class GameContainer:
 
     def __init__(self):
-        self.score = 0
-        self.state = self.STATE_IDLE
-        self.timer = -1
         self.players = []
 
-        print('BetModule initiated...')
+        self.timer = -1
+        self.limit = -1
 
-    '''
-        This method gets called when a command arrives that passed this module's filter
-        This function can return a string which will be the bot's response.
-    '''
+    def has_ties(self):
+        if len(self.players) >= 2:
+            if self.players[0][1] == self.players[1][1]:
+                return True
+            if self.players[-1][1] == self.players[-2][1]:
+                return True
+            return False
+        return False
+
+    def add_player(self, player, cashmoney):
+        for mem, val in self.players:
+            if mem.id == player.id:
+                return False
+
+        if not cashmoney.can_afford(player.id, self.limit):
+            msg = "{}... you cant afford that man!".format(module.strip_name(player))
+            module.send_message_nowait(module.chat_default, msg)
+            return False
+
+        if not cashmoney.lock_member(player.id):
+            msg = "{}! You are already in a transaction!".format(module.strip_name(player))
+            module.send_message_nowait(module.chat_default, msg)
+            return False
+
+        score = random.randint(0, self.limit)
+        self.players.append((player, score))
+        msg = "Welcome to the game {}!".format(module.strip_name(player))
+        module.send_message_nowait(module.chat_default, msg)
+        return True
+
+    def randomize(self):
+        for it in range(0, len(self.players)):
+            print("Rerolling bets")
+            self.players[0] = (self.players[0][0], random.randint(0, self.limit))
+
+    def sort(self):
+        self.players = sorted(self.players, key=itemgetter(1), reverse = True)
+
+    def finalize(self, cashmoney):
+        self.timer = -1
+        self.sort()
+
+        # attempt to break tie's max 3 times.
+        for it in range(0, 3):
+            if not self.has_ties():
+                break
+            self.randomize()
+            self.sort()
+
+        if self.has_ties():
+            module.send_message_nowait(module.chat_default, "Match ended in a tie.. nothing happend.")
+            for it in range(0, len(self.players)):
+                cashmoney.unlock_member(self.players[it][0].id)
+            return
+
+        difference = self.players[0][1] - self.players[-1][1]
+
+        msg = "Round played for {} gold!\r\n\r\n".format(self.limit)
+        msg += "Scores:\r\n"
+        for player, score in self.players:
+            msg += "    - {}: {}\r\n".format(module.strip_name(player), score)
+
+        msg += "\r\n{} lost {} gold to {}!".format(
+            module.strip_name(self.players[0][0]),
+            difference,
+            module.strip_name(self.players[-1][0]))
+
+        cashmoney.transfer(difference, self.players[0][0].id, self.players[-1][0].id)
+        cashmoney.update_after_bet(self.players[0][0].id, difference, cash.BET_WON)
+        cashmoney.update_after_bet(self.players[-1][0].id, difference, cash.BET_LOST)
+
+        for it in range(1, len(self.players) - 1):
+            cashmoney.update_after_bet(self.players[it][0], difference)
+        
+        module.send_message_nowait(module.chat_default, msg)
+        
+        self.players = []
+        self.limit = -1
+
+
+#
+#   MODULE PART
+#
+
+class BetModule(module.Module):
+
+    def __init__(self, cashmoney):
+        self.cashmoney = cashmoney
+        self.game = GameContainer()
+
+        print("BetModule initialized...")
+
     async def handle_message(self, message):
         if not message.channel.name == module.chat_default.name:
             return
 
-        args = message.content.split(' ')
+        args = message.content.split(" ")
 
-        if len(args) == 1:
-            if self.state == self.STATE_IDLE or self.state == self.STATE_COOLDOWN or self.state == self.STATE_COOLDOWN:
-                await module.dc_client.send_message(message.channel, 'There is currently no game to join.')
-                return
-            
-            if message.author in self.players:
-                await module.dc_client.send_message(message.channel, 'Hey! {} you can ony participate once!'.format(message.author.name))
-            else:
-                self.players.append(message.author)
-                await module.dc_client.send_message(message.channel, 'welcome to the game {}!'.format(message.author.name))
-            
+        if len(args) == 1 and not self.game.timer == -1:
+            self.game.add_player(message.author, self.cashmoney)
+            return
+
         if len(args) == 2:
-            if args[1] == 'help':
+            if args[1] == "help":
                 await module.dc_client.send_message(message.channel, self.help_message())
-                return True
-            if args[1] == 'status':
-                await module.dc_client.send_message(message.channel, self.status())
-                return True
-            
-            if self.state == self.STATE_GAME:
-                await module.dc_client.send_message(message.channel, 'There is already a game running silly')
                 return
             
-            if self.state == self.STATE_COOLDOWN or self.state == self.STATE_FINSHED:
-                await module.dc_client.send_message(message.channel, 'Give me a few seconds to relax!')
+            if args[1] == "status":
+                await module.dc_client.send_message(message.channel, self.status())
+                return
+
+            if not self.game.timer == -1:
+                await module.dc_client.send_message(message.channel, 'There is already a game running silly')
                 return
 
             if is_int(args[1]):
-                msg = '{} has started a game for {}, type "!bet"  within 15 seconds to join!'
                 value = int(args[1])
 
-                if value > 100000000000000000000:
-                    await module.dc_client.send_message(message.channel, 'eem nomoal...')
+                if value <= -1:
+                    await module.dc_client.send_message(message.channel, 'Yeah... No!')
                     return
 
-                if value < 1:
-                    await module.dc_client.send_message(message.channel, 'noooooooope!')
+                if not self.cashmoney.can_afford(message.author.id, value):
+                    await module.dc_client.send_message(message.channel, 'You cannot afford that LOL!')
                     return
 
-                
-                await module.dc_client.send_message(message.channel, msg.format(message.author.name, value))
+                if self.cashmoney.is_locked(message.author.id):
+                    await module.dc_client.send_message(message.channel, 'Cant start a game when in a transaction.')
+                    return
 
-                self.timer = 15
-                self.score = value
-                self.players = [message.author]
-                self.state = self.STATE_GAME
-                return
+                await module.dc_client.send_message(message.channel, 'A game has started worth {} gold! Join within 15 seconds by typing !bet.'.format(value))
+                self.game.players = []
+                self.game.timer = 15
+                self.game.limit = value
+                self.game.add_player(message.author, self.cashmoney)
 
-            
 
 
     '''
@@ -95,17 +171,13 @@ class BetModule(module.Module):
         msg += '    "!bet" Join a bet, make sure you have enough gold!'
         return msg
 
-    ''' Gets called once, when the client is connected. '''
-    async def on_ready(self):
-        pass
-
-    ''' gets called when an update happens in any voice channel '''
-    async def on_voice_change(self):
-        pass
-
     ''' Status in 1 line (running! or error etc..) '''
     def short_status(self):
-        return self.name() + ': ' + self.state
+        msg = "{}: {}"
+        if self.game.timer == -1:
+            return msg.format(self.name(), "Idle...")
+        else:
+            return msg.format(self.name(), "Running a game!")
 
     '''
         This method gets called when status is called on this module. 
@@ -113,82 +185,20 @@ class BetModule(module.Module):
     '''
     def status(self):
         msg = 'BetModule status:'
-        if self.state == self.STATE_GAME:
-            msg += ' A game is running, join now!\r\n\r\n'
-            msg += 'Players:\r\n'
-            for member in self.players:
-                msg += '    ' + member.name + '\r\n'
+        if not self.game.timer == -1:
+            msg += "A game is running, join now!\r\n\r\n"
+            return msg
         else:
-            msg += self.state
-        return msg
+            return self.short_status()
 
-    ''' This method gets called once every second for time based operations. '''
     async def update(self):
-        if self.state == self.STATE_IDLE:
-            return
-        
-        print('self.state: {}'.format(self.state))
-        print('self.timer: {}'.format(self.timer))
-        
-        if self.timer == 0:
-            if self.state == self.STATE_GAME:
-                self.state = self.STATE_FINSHED
-                return
+        if not self.game.timer == -1:
+            self.game.timer -= 1
+
+        if self.game.timer == 0:
             
-            if self.state == self.STATE_COOLDOWN:
-                self.state = self.STATE_IDLE
+            if len(self.game.players) <= 1:
+                await module.dc_client.send_message(module.chat_default, 'Nobody joined =( what a shame...')
                 return
 
-        if self.state == self.STATE_GAME:
-            self.timer -= 1
-            return
-        
-        if self.state == self.STATE_FINSHED:
-            # Laat de scores binnenlopen met een seconde ertussen steeds.
-
-            print('GAME SHOULD FINISH HERE')
-            scores = []
-            if len(self.players) == 1:
-                await module.dc_client.send_message(module.chat_default, 'Nobody joined, what a shame =(')
-                self.state = self.STATE_COOLDOWN
-                self.timer = 5
-                return
-            
-            for p in self.players:
-                scores.append(random.randint(0, self.score))
-
-            min = self.score + 12
-            playermin = None
-            max = 0
-            playermax = None
-            for i in range(0, len(self.players)):
-                if scores[i] > max:
-                    max = scores[i]
-                    playermax = self.players[i]
-                if scores[i] < min:
-                    min = scores[i]
-                    playermin = self.players[i]
-
-            if playermax == playermin or playermax == None or playermin == None:
-                await module.dc_client.send_message(module.chat_default, 'Nobody won, how rude =(')
-                self.state = self.STATE_COOLDOWN
-            
-            msg = 'Round played for {}'.format(self.score)
-            msg += '\r\n\r\nScores:\r\n'
-            for i in range(0, len(self.players)):
-                msg += '    {}: {}\r\n'.format(self.players[i].name, scores[i])
-            
-            if not playermin or not playermax:
-                print("PLAYERMIN / PLAYERMAX NOT SET")
-                msg += "An internal error occured..."
-            else:
-                msg += '\r\nLoser {} has lost {} gold to winner {}'.format(playermin.name, max - min, playermax.name)
-                self.state = self.STATE_COOLDOWN
-                self.timer = 5
-            await module.dc_client.send_message(module.chat_default, msg)
-
-            return
-
-        if self.state == self.STATE_COOLDOWN:
-            self.timer -= 1
-            return
+            self.game.finalize(self.cashmoney)

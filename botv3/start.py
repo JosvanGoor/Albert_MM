@@ -14,6 +14,7 @@ import modules.ServerInfoModule as sim
 import modules.YoutubeModule as ym
 import modules.StreamModule as sm
 import modules.MemeModule as meme
+import modules.CashmoneyModule as cash
 
 dc_client = discord.Client()
 modules = {}
@@ -41,13 +42,14 @@ def register_modules():
     module.dc_client = dc_client
     module.chat_default = module.channel_by_name('botspam')
     worker.initialize(3, asyncio.get_event_loop())
-    userdata.initialize()
+    #userdata.initialize()
 
     #modules['!command'] = Module()
     modules['!yt'] = ym.YoutubeModule()
     modules['!info'] = sim.ServerInfoModule()
     modules['!name'] = im.IdentityModule()
-    modules['!bet'] = bm.BetModule()
+    modules["!wallet"] = cash.CashmoneyModule()
+    modules['!bet'] = bm.BetModule(modules["!wallet"])
     modules['!meme'] = meme.MemeModule()
     modules["!stream"] = sm.StreamModule(module.channel_by_name('e-sports'))
 

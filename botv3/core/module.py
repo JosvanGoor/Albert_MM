@@ -34,6 +34,12 @@ def get_server():
 def send_message_nowait(channel, message):
     asyncio.ensure_future(dc_client.send_message(channel, message))
 
+def strip_name(member):
+    if isinstance(member, discord.Member):
+        if hasattr(member, "nick") and member.nick:
+            return member.nick
+        return member.name
+
 ################
 ## Base class ##
 ################
@@ -48,7 +54,7 @@ class Module:
         !! Currently unused
     '''
     def get_filter(self):
-        raise NotImplementedError()
+        return ""
 
     '''
         This method gets called when a command arrives that passed this module's filter

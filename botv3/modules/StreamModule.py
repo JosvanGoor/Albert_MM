@@ -21,6 +21,8 @@ class StreamModule(module.Module):
                 value["online"] = True
             else:
                 value["online"] = False
+        
+        print("StreamModule initialized...")
 
     #####
     #   MODULE OVERWRITES
