@@ -54,20 +54,22 @@ class GameContainer:
     def randomize(self):
         for it in range(0, len(self.players)):
             print("Rerolling bets")
-            self.players[0] = (self.players[0][0], random.randint(0, self.limit))
+            random.shuffle(self.players)
+            self.players[it] = (self.players[it][0], random.randint(0, self.limit))
 
     def sort(self):
         self.players = sorted(self.players, key=itemgetter(1), reverse = True)
         
     def finalize(self, cashmoney):
         self.timer = -1
+        self.randomize()
         self.sort()
 
         # attempt to break tie's max 3 times.
         for it in range(0, 3):
             if not self.has_ties():
                 break
-            self.randomize()
+            #self.randomize()
             self.sort()
 
         if self.has_ties():
