@@ -173,4 +173,4 @@ class CashmoneyModule(module.Module):
         return "CashmoneyModule: Ya'll broke!"
 
     def status(self):
-        return short_status()
+        return self.short_status()
