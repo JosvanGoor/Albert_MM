@@ -93,7 +93,7 @@ class GameContainer:
         cashmoney.update_after_bet(self.players[-1][0].id, difference, cash.BET_LOST)
 
         for it in range(1, len(self.players) - 1):
-            cashmoney.update_after_bet(self.players[it][0], difference)
+            cashmoney.update_after_bet(self.players[it][0].id, difference)
         
         module.send_message_nowait(module.chat_default, msg)
         
