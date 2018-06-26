@@ -90,11 +90,9 @@ class CashmoneyModule(module.Module):
     #   Meme-conomy
     #
 
-    def update_after_bet(self, id, amount, result = BET_TIED):
-        data = self._data[id]
-
-        if amount > data["biggest_game"]:
-            data["biggest_game"] = amount
+    def update_after_bet(self, id, amount, limit, result = BET_TIED):
+        
+        self._data[id]["biggest_game"] = max(self._data[id]["biggest_game"])
         data["bet_games_played"] = 1 + data["bet_games_played"]
 
         if result == BET_WON:

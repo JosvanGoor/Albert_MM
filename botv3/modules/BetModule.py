@@ -89,11 +89,11 @@ class GameContainer:
             module.strip_name(self.players[-1][0]))
 
         cashmoney.transfer(difference, self.players[0][0].id, self.players[-1][0].id)
-        cashmoney.update_after_bet(self.players[0][0].id, difference, cash.BET_WON)
-        cashmoney.update_after_bet(self.players[-1][0].id, difference, cash.BET_LOST)
+        cashmoney.update_after_bet(self.players[0][0].id, difference, self.limit, cash.BET_WON)
+        cashmoney.update_after_bet(self.players[-1][0].id, difference, self.limit, cash.BET_LOST)
 
         for it in range(1, len(self.players) - 1):
-            cashmoney.update_after_bet(self.players[it][0].id, difference)
+            cashmoney.update_after_bet(self.players[it][0].id, self.limit, difference)
         
         module.send_message_nowait(module.chat_default, msg)
         
@@ -199,7 +199,7 @@ class BetModule(module.Module):
             
             if len(self.game.players) <= 1:
                 await module.dc_client.send_message(module.chat_default, 'Nobody joined =( what a shame...')
-
+                self.game.timer = -1
                 for it in range(0, len(self.game.players)):
                     self.cashmoney.unlock_member(self.game.players[it][0])
 
