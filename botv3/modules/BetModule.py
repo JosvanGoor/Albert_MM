@@ -58,7 +58,7 @@ class GameContainer:
 
     def sort(self):
         self.players = sorted(self.players, key=itemgetter(1), reverse = True)
-
+        
     def finalize(self, cashmoney):
         self.timer = -1
         self.sort()
@@ -84,9 +84,9 @@ class GameContainer:
             msg += "    - {}: {}\r\n".format(module.strip_name(player), score)
 
         msg += "\r\n{} lost {} gold to {}!".format(
-            module.strip_name(self.players[0][0]),
+            module.strip_name(self.players[-1][0]),
             difference,
-            module.strip_name(self.players[-1][0]))
+            module.strip_name(self.players[0][0]))
 
         cashmoney.transfer(difference, self.players[0][0].id, self.players[-1][0].id, False)
         cashmoney.update_after_bet(self.players[0][0].id, difference, self.limit, cash.BET_WON)
