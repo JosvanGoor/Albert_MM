@@ -88,13 +88,14 @@ class GameContainer:
             difference,
             module.strip_name(self.players[-1][0]))
 
-        cashmoney.transfer(difference, self.players[0][0].id, self.players[-1][0].id)
+        cashmoney.transfer(difference, self.players[0][0].id, self.players[-1][0].id, False)
         cashmoney.update_after_bet(self.players[0][0].id, difference, self.limit, cash.BET_WON)
         cashmoney.update_after_bet(self.players[-1][0].id, difference, self.limit, cash.BET_LOST)
 
         for it in range(1, len(self.players) - 1):
             cashmoney.update_after_bet(self.players[it][0].id, self.limit, difference)
         
+        cashmoney._save_data()
         module.send_message_nowait(module.chat_default, msg)
         
         self.players = []

@@ -92,20 +92,18 @@ class CashmoneyModule(module.Module):
 
     def update_after_bet(self, id, amount, limit, result = BET_TIED):
         
-        self._data[id]["biggest_game"] = max(self._data[id]["biggest_game"])
-        data["bet_games_played"] = 1 + data["bet_games_played"]
+        self._data[id]["biggest_game"] = max(self._data[id]["biggest_game"], limit)
+        self._data[id]["bet_games_played"] = 1 + self._data[id]["bet_games_played"]
 
         if result == BET_WON:
-            data["bet_games_won"] = 1 + data["bet_games_won"]
-            data["total_winnings"] = amount + data["total_winnings"]
-            if amount > data["biggest_win"]:
-                data["biggest_win"] = amount
+            self._data[id]["bet_games_won"] = 1 + self._data[id]["bet_games_won"]
+            self._data[id]["total_winnings"] = amount + self._data[id]["total_winnings"]
+            self._data[id]["biggest_win"] = max(self._data[id]["biggest_win"], amount)
 
         elif result == BET_LOST:
-            data["bet_games_lost"] = 1 + data["bet_games_lost"]
-            data["total_losses"] = amount + data["total_losses"]
-            if amount > data["biggest_loss"]:
-                data["biggest_loss"] = amount
+            self._data[id]["bet_games_lost"] = 1 + self._data[id]["bet_games_lost"]
+            self._data[id]["total_losses"] = amount + self._data]id]["total_losses"]
+            self._data[id]["biggest_loss"] = max(self._data[id]["biggest_loss"], amount)
 
         self.unlock_member(id)
 
@@ -123,7 +121,7 @@ class CashmoneyModule(module.Module):
         return msg
 
     # does not lock since this is a single thread class, and this op is instant.
-    def transfer(self, amount, from_id, to_id):
+    def transfer(self, amount, from_id, to_id, save = True):
         self.validate_member(from_id) #validations shouldn't be required here
         self.validate_member(to_id)
 
@@ -159,13 +157,13 @@ class CashmoneyModule(module.Module):
             return
 
         args = message.content.split(" ")
-        if len(args) < 2:
-            return
-
-        if args[1] == "balance":
+        
+        if len(args) == 1:
             self.validate_member(message.author.id)
             msg = self.balance_message(message.author.id, module.strip_name(message.author))
             await module.dc_client.send_message(message.channel, msg)
+
+        await super().handle_message(message)
 
     def help_message(self):
         return "CashmoneyModule help: WIP"
