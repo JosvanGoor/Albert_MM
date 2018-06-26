@@ -199,6 +199,10 @@ class BetModule(module.Module):
             
             if len(self.game.players) <= 1:
                 await module.dc_client.send_message(module.chat_default, 'Nobody joined =( what a shame...')
+
+                for it in range(0, len(self.game.players)):
+                    self.cashmoney.unlock_member(self.game.players[it][0])
+
                 return
 
             self.game.finalize(self.cashmoney)

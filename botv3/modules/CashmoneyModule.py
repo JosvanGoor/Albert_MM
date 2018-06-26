@@ -92,18 +92,22 @@ class CashmoneyModule(module.Module):
 
     def update_after_bet(self, id, amount, result = BET_TIED):
         data = self._data[id]
-        
-        data["biggest_game"] = max(data["biggest_game"], amount)
-        data["bet_games_played"] += 1
+
+        if amount > data["biggest_game"]:
+            data["biggest_game"] = amount
+        data["bet_games_played"] = 1 + data["bet_games_played"]
 
         if result == BET_WON:
-            data["bet_games_won"] += 1
-            data["total_winnings"] += amount
-            data["biggest_win"] = max(data["biggest_win"], amount) 
+            data["bet_games_won"] = 1 + data["bet_games_won"]
+            data["total_winnings"] = amount + data["total_winnings"]
+            if amount > data["biggest_win"]:
+                data["biggest_win"] = amount
+
         elif result == BET_LOST:
-            data["bet_games_lost"] += 1
-            data["total_losses"] += amount
-            data["biggest_loss"] = max(data["biggest_loss"], amount)
+            data["bet_games_lost"] = 1 + data["bet_games_lost"]
+            data["total_losses"] = amount + data["total_losses"]
+            if amount > data["biggest_loss"]:
+                data["biggest_loss"] = amount
 
         self.unlock_member(id)
 
