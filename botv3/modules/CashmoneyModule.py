@@ -102,7 +102,7 @@ class CashmoneyModule(module.Module):
 
         elif result == BET_LOST:
             self._data[id]["bet_games_lost"] = 1 + self._data[id]["bet_games_lost"]
-            self._data[id]["total_losses"] = amount + self._data]id]["total_losses"]
+            self._data[id]["total_losses"] = amount + self._data[id]["total_losses"]
             self._data[id]["biggest_loss"] = max(self._data[id]["biggest_loss"], amount)
 
         self.unlock_member(id)
@@ -162,6 +162,7 @@ class CashmoneyModule(module.Module):
             self.validate_member(message.author.id)
             msg = self.balance_message(message.author.id, module.strip_name(message.author))
             await module.dc_client.send_message(message.channel, msg)
+            return
 
         await super().handle_message(message)
 

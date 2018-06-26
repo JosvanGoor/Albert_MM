@@ -202,7 +202,7 @@ class BetModule(module.Module):
                 await module.dc_client.send_message(module.chat_default, 'Nobody joined =( what a shame...')
                 self.game.timer = -1
                 for it in range(0, len(self.game.players)):
-                    self.cashmoney.unlock_member(self.game.players[it][0])
+                    self.cashmoney.unlock_member(self.game.players[it][0].id)
 
                 return
 
