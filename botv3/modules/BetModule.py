@@ -53,7 +53,7 @@ class GameContainer:
 
     def randomize(self):
         for it in range(0, len(self.players)):
-            print("Rerolling bets")
+            #print("Rerolling bets")
             random.shuffle(self.players)
             self.players[it] = (self.players[it][0], random.randint(0, self.limit))
 
@@ -69,7 +69,7 @@ class GameContainer:
         for it in range(0, 3):
             if not self.has_ties():
                 break
-            #self.randomize()
+            self.randomize()
             self.sort()
 
         if self.has_ties():
