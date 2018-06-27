@@ -95,6 +95,9 @@ class Module:
     async def on_voice_change(self):
         pass
 
+    async def on_reaction_add(self, reaction, user):
+        pass
+
     ''' Status in 1 line (running! or error etc..) '''
     def short_status(self):
         raise NotImplementedError()

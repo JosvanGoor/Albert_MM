@@ -10,6 +10,10 @@ import core.module as module
 
 # some constants
 STARTING_GOLD = 10000 #10K
+DAILY_GAIN = 2500
+DAILY_BONUS = 10000 #10K
+MESSAGE_WEIGHT = 1.0
+REACTION_WEIGHT = 0.5
 
 BET_WON = "winning!"
 BET_LOST = "losing!"
@@ -68,7 +72,7 @@ class CashmoneyModule(module.Module):
     def _fresh_activity(self):
         return \
         {
-            "chats" : 0,
+            "messages" : 0,
             "reactions" : 0,
             "voice" : False,
             "played" : False,
@@ -135,23 +139,46 @@ class CashmoneyModule(module.Module):
     #   Activity updates
     #
 
-    def on_chat(self, id):
-        if id in self._data:
-            self._data[id]["activity"]["chats"] += 1
+    def was_active(self, activity):
+        return (activity["messages"] + activity["reactions"]) > 0
 
-    def on_reaction(self, id):
-        if id in self._data:
-            self._data[id]["activity"]["reactions"] += 1
+    def joe_cashflow(self):
+        total_messages = 0
+        total_reactions = 0
+        
+        for member in self._data.values():
+            total_messages += member["activity"]["messages"]
+            total_reactions += member["activity"]["reactions"]
 
-    ' Voice is future work '
+        total_activity = total_messages * MESSAGE_WEIGHT + total_reactions * REACTION_WEIGHT
+
+        for member in self._data.values():
+            if not was_active(member["activity"]):
+                continue
+            
+            activity_score = MESSAGE_WEIGHT * member["activity"]["messages"]
+            activity_score += REACTION_WEIGHT * member["activity"]["reactions"]
+            bonus_part = int((activity_score / total_activity) * DAILY_BONUS)
+
+            member["gold"] += int(DAILY_GAIN + bonus_part)
+            member["activity"] = self._fresh_activity()
+
+        self._save_data()
 
     #
     #   Module overwrites
     #
 
     async def handle_message(self, message):
+        if not message.content.startswith("!") and not message.is_private:
+            id = message.author.id
+            self._data[id]["activity"]["messages"] += 1
+
         if not message.content.startswith("!wallet"):
             return
+
+        if message.is_private and message.content.startswith("!gain"):
+            joe_cashflow()
 
         if not message.channel.is_private and not message.channel.name == module.chat_default.name:
             return
@@ -165,6 +192,12 @@ class CashmoneyModule(module.Module):
             return
 
         await super().handle_message(message)
+
+    async def on_reaction_add(self, reaction, user):
+        if reaction.message.is_private:
+            return
+
+        self._data[user.id]["activity"]["reactions"] += 1
 
     def help_message(self):
         return "CashmoneyModule help: WIP"

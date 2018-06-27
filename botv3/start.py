@@ -104,5 +104,11 @@ async def on_voice_state_update(before, after):
 
     await general_module.on_voice_change()
 
+@dc_client.event
+async def on_reaction_add(reaction, user):
+    for mod in module.values():
+        await mod.on_reaction_add(reaction, user)
+    await general_module.on_reaction_add(reaction, user)
+
 # run the thing
 dc_client.run(token.get_token())
