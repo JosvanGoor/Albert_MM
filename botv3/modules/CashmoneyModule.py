@@ -173,6 +173,7 @@ class CashmoneyModule(module.Module):
         if not message.content.startswith("!") and not message.is_private:
             id = message.author.id
             self._data[id]["activity"]["messages"] += 1
+            return
 
         if not message.content.startswith("!wallet"):
             return

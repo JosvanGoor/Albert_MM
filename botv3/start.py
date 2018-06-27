@@ -88,10 +88,14 @@ async def on_ready():
 @dc_client.event
 async def on_message(message):
     for key, value in modules.items():
+        if message.content.startswith("!wallet"):
+                continue
         if(message.content.startswith(key)):
             await value.handle_message(message)
             return
     
+    modules["!wallet"].on_message()
+
     await general_module.handle_message(message)
 
 '''
