@@ -170,7 +170,8 @@ class CashmoneyModule(module.Module):
     #
 
     async def handle_message(self, message):
-        if not message.content.startswith("!") and not message.is_private:
+        if message.author.id == "432173429446410243": return
+        if not message.content.startswith("!") and not message.channel.is_private:
             id = message.author.id
             self._data[id]["activity"]["messages"] += 1
             return
@@ -178,7 +179,7 @@ class CashmoneyModule(module.Module):
         if not message.content.startswith("!wallet"):
             return
 
-        if message.is_private and message.content.startswith("!gain"):
+        if message.channel.is_private and message.content.startswith("!gain"):
             joe_cashflow()
 
         if not message.channel.is_private and not message.channel.name == module.chat_default.name:

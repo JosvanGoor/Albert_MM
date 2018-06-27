@@ -94,7 +94,7 @@ async def on_message(message):
             await value.handle_message(message)
             return
     
-    modules["!wallet"].on_message()
+    await modules["!wallet"].handle_message(message)
 
     await general_module.handle_message(message)
 
