@@ -1,56 +1,164 @@
 {
-    "202119009791901697": {
-        "biggest_loss": 3601,
-        "bet_games_played": 12,
-        "gold": 22065,
-        "bet_games_lost": 5,
+    "153511530284056576": {
+        "gold": 468,
+        "bet_games_played": 43,
+        "total_losses": 18190,
+        "biggest_game": 17000,
         "transaction_lock": false,
+        "bet_games_lost": 15,
         "activity": {
-            "played": false,
             "voice": false,
-            "chats": 0,
-            "reactions": 0
-        },
-        "biggest_win": 5826,
-        "total_winnings": 20434,
-        "total_losses": 8369,
-        "bet_games_won": 7,
-        "biggest_game": 10000
-    },
-    "186944876196134912": {
-        "biggest_loss": 5826,
-        "bet_games_played": 12,
-        "gold": 4350,
-        "bet_games_lost": 6,
-        "transaction_lock": false,
-        "activity": {
             "played": false,
-            "voice": false,
-            "chats": 0,
-            "reactions": 0
-        },
-        "biggest_win": 3601,
-        "total_winnings": 8369,
-        "total_losses": 14019,
-        "bet_games_won": 5,
-        "biggest_game": 10000
-    },
-    "406073709879885831": {
-        "biggest_loss": 4830,
-        "bet_games_played": 5,
-        "gold": 3585,
-        "bet_games_lost": 2,
-        "biggest_win": 60,
-        "activity": {
-            "played": false,
-            "voice": false,
             "reactions": 0,
             "chats": 0
         },
+        "total_winnings": 8658,
+        "biggest_loss": 9789,
+        "bet_games_won": 17,
+        "biggest_win": 5047
+    },
+    "321613328155934731": {
+        "gold": 1054,
+        "bet_games_played": 26,
+        "total_losses": 11771,
+        "biggest_game": 6000,
         "transaction_lock": false,
-        "total_winnings": 60,
+        "bet_games_lost": 13,
+        "activity": {
+            "voice": false,
+            "played": false,
+            "reactions": 0,
+            "chats": 0
+        },
+        "total_winnings": 2825,
+        "biggest_loss": 5047,
+        "bet_games_won": 4,
+        "biggest_win": 2475
+    },
+    "262694147536715789": {
+        "gold": 10000,
+        "bet_games_played": 0,
+        "total_losses": 0,
+        "biggest_game": 0,
+        "transaction_lock": false,
+        "bet_games_lost": 0,
+        "activity": {
+            "voice": false,
+            "played": false,
+            "reactions": 0,
+            "chats": 0
+        },
+        "total_winnings": 0,
+        "biggest_loss": 0,
+        "bet_games_won": 0,
+        "biggest_win": 0
+    },
+    "202119009791901697": {
+        "gold": 65702,
+        "bet_games_played": 91,
+        "total_losses": 15286,
+        "biggest_game": 17000,
+        "transaction_lock": false,
+        "bet_games_lost": 29,
+        "activity": {
+            "voice": false,
+            "played": false,
+            "reactions": 0,
+            "chats": 0
+        },
+        "total_winnings": 70988,
+        "biggest_loss": 3601,
+        "bet_games_won": 52,
+        "biggest_win": 9789
+    },
+    "140550053080072192": {
+        "gold": 1698,
+        "bet_games_played": 17,
+        "total_losses": 10480,
+        "biggest_game": 10000,
+        "transaction_lock": false,
+        "bet_games_lost": 7,
+        "activity": {
+            "voice": false,
+            "played": false,
+            "reactions": 0,
+            "chats": 0
+        },
+        "total_winnings": 2178,
+        "biggest_loss": 9146,
+        "bet_games_won": 6,
+        "biggest_win": 1060
+    },
+    "406073709879885831": {
+        "gold": 3585,
+        "bet_games_played": 5,
         "total_losses": 6475,
+        "biggest_game": 7519,
+        "transaction_lock": false,
+        "bet_games_lost": 2,
+        "activity": {
+            "voice": false,
+            "played": false,
+            "reactions": 0,
+            "chats": 0
+        },
+        "total_winnings": 60,
+        "biggest_loss": 4830,
         "bet_games_won": 1,
-        "biggest_game": 7519
+        "biggest_win": 60
+    },
+    "203148444380954624": {
+        "gold": 7416,
+        "bet_games_played": 28,
+        "total_losses": 17760,
+        "biggest_game": 9000,
+        "transaction_lock": false,
+        "bet_games_lost": 12,
+        "activity": {
+            "voice": false,
+            "played": false,
+            "reactions": 0,
+            "chats": 0
+        },
+        "total_winnings": 15176,
+        "biggest_loss": 5873,
+        "bet_games_won": 11,
+        "biggest_win": 2610
+    },
+    "186944876196134912": {
+        "gold": 70,
+        "bet_games_played": 55,
+        "total_losses": 19175,
+        "biggest_game": 10000,
+        "transaction_lock": false,
+        "bet_games_lost": 25,
+        "activity": {
+            "voice": false,
+            "played": false,
+            "reactions": 0,
+            "chats": 0
+        },
+        "total_winnings": 9245,
+        "biggest_loss": 5826,
+        "bet_games_won": 17,
+        "biggest_win": 3601
+    },
+    "342446113988804608": {
+        "gold": 7,
+        "bet_games_played": 79,
+        "total_losses": 24609,
+        "biggest_game": 10900,
+        "transaction_lock": false,
+        "bet_games_lost": 35,
+        "activity": {
+            "voice": false,
+            "played": false,
+            "reactions": 0,
+            "chats": 0
+        },
+        "total_winnings": 14616,
+        "biggest_loss": 5340,
+        "bet_games_won": 30,
+        "biggest_win": 2523
     }
 }
