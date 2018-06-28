@@ -135,6 +135,17 @@ class BetModule(module.Module):
                 await module.dc_client.send_message(message.channel, self.status())
                 return
 
+            if args[1] == "stats":
+                self.cashmoney.validate_member(message.author.id)
+                data = self.cashmoney._data[message.author.id]
+
+                msg = "Bet stats for {}:\r\n\r\n".format(module.strip_name(message.author))
+                msg += "Biggest game played: {}\r\n".format(data["biggest_game"])
+                msg += "Total money won / lost: {}g / {}g.\r\n".format(data["total_winnings"], data["total_losses"])
+                msg += "Games played / won / lost: {} / {} / {}\r\n".format(data["bet_games_played"], data["bet_games_won"], data["bet_games_lost"])
+                msg += "Biggest win / loss: {} / {}".format(data["biggest_win"], data["biggest_loss"])
+                await module.dc_client.send_message(message.channel, msg)
+
             if not self.game.timer == -1:
                 await module.dc_client.send_message(message.channel, 'There is already a game running silly')
                 return
