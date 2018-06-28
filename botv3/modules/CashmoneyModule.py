@@ -153,8 +153,8 @@ class CashmoneyModule(module.Module):
         total_activity = total_messages * MESSAGE_WEIGHT + total_reactions * REACTION_WEIGHT
 
         for member in self._data.values():
-            if not was_active(member["activity"]):
-                continue
+            #if not self.as_active(member["activity"]):
+            #    continue
             
             activity_score = MESSAGE_WEIGHT * member["activity"]["messages"]
             activity_score += REACTION_WEIGHT * member["activity"]["reactions"]
@@ -177,24 +177,22 @@ class CashmoneyModule(module.Module):
             self._data[id]["activity"]["messages"] += 1
             return
 
-        if not message.content.startswith("!wallet"):
-            return
-
         if message.channel.is_private and message.content.startswith("!gain"):
-            joe_cashflow()
+            self.joe_cashflow()
 
         if not message.channel.is_private and not message.channel.name == module.chat_default.name:
             return
 
         args = message.content.split(" ")
         
-        if len(args) == 1:
+        if len(args) == 1 and args[0] == "!wallet":
             self.validate_member(message.author.id)
             msg = self.balance_message(message.author.id, module.strip_name(message.author))
             await module.dc_client.send_message(message.channel, msg)
             return
-
-        await super().handle_message(message)
+        
+        if args[0] == "!wallet":
+            await super().handle_message(message)
 
     async def on_reaction_add(self, reaction, user):
         if user.id == "432173429446410243": return
