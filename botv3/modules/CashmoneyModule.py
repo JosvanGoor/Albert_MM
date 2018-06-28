@@ -158,7 +158,8 @@ class CashmoneyModule(module.Module):
             
             activity_score = MESSAGE_WEIGHT * member["activity"]["messages"]
             activity_score += REACTION_WEIGHT * member["activity"]["reactions"]
-            bonus_part = int((activity_score / total_activity) * DAILY_BONUS)
+            #bonus_part = int((activity_score / total_activity) * DAILY_BONUS)
+            bonus_part = 0
 
             member["gold"] += int(DAILY_GAIN + bonus_part)
             member["activity"] = self._fresh_activity()
@@ -170,7 +171,6 @@ class CashmoneyModule(module.Module):
     #
 
     async def handle_message(self, message):
-        return
         if message.author.id == "432173429446410243": return
         if not message.content.startswith("!") and not message.channel.is_private:
             id = message.author.id
@@ -197,6 +197,7 @@ class CashmoneyModule(module.Module):
         await super().handle_message(message)
 
     async def on_reaction_add(self, reaction, user):
+        if user.id == "432173429446410243": return
         if reaction.message.is_private:
             return
 
