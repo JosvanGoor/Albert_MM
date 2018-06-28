@@ -113,7 +113,7 @@
             "played": false,
             "reactions": 0,
             "voice": false,
-            "messages": 2
+            "messages": 9
         },
         "biggest_win": 2523,
         "total_losses": 24617,
@@ -131,17 +131,17 @@
             "played": false,
             "reactions": 0,
             "voice": false,
-            "messages": 4
+            "messages": 19
         },
         "biggest_win": 3601,
-        "total_losses": 19176,
+        "total_losses": 19283,
         "biggest_loss": 5826,
-        "bet_games_won": 19,
-        "total_winnings": 9253,
-        "gold": 77,
+        "bet_games_won": 22,
+        "total_winnings": 9367,
+        "gold": 84,
         "biggest_game": 10000,
-        "bet_games_lost": 26,
-        "bet_games_played": 58
+        "bet_games_lost": 27,
+        "bet_games_played": 62
     },
     "202119009791901697": {
         "transaction_lock": false,
@@ -149,16 +149,16 @@
             "played": false,
             "reactions": 0,
             "voice": false,
-            "messages": 0
+            "messages": 2
         },
         "biggest_win": 9789,
-        "total_losses": 15286,
+        "total_losses": 15400,
         "biggest_loss": 3601,
-        "bet_games_won": 52,
-        "total_winnings": 70988,
-        "gold": 65702,
+        "bet_games_won": 53,
+        "total_winnings": 71095,
+        "gold": 65695,
         "biggest_game": 17000,
-        "bet_games_lost": 29,
-        "bet_games_played": 91
+        "bet_games_lost": 32,
+        "bet_games_played": 95
     }
 }

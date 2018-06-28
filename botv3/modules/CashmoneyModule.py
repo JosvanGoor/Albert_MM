@@ -170,6 +170,7 @@ class CashmoneyModule(module.Module):
     #
 
     async def handle_message(self, message):
+        return
         if message.author.id == "432173429446410243": return
         if not message.content.startswith("!") and not message.channel.is_private:
             id = message.author.id
